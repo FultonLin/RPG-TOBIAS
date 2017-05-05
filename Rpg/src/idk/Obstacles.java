@@ -1,9 +1,11 @@
 package idk;
 
-public class Obstacles {
+import guiPractice.components.Moving;
+
+public class Obstacles extends Moving {
 
 	public Obstacles() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 }
