@@ -8,14 +8,14 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class RPG extends StateBasedGame{
 
-	public static final String GameName = "SlickRun";
-	public static final int Map = 0;
-	public static final int Menu = 1;
+	public static final String gameName = "SlickRun";
+	public static final int map = 0;
+	public static final int menu = 1;
 	
-	public RPG(String GameName) {
-		super(GameName);
-		this.addState(new Map(Map));
-		this.addState(new Menu(Menu));
+	public RPG(String gameName) {
+		super(gameName);
+		this.addState(new Map(map));
+		this.addState(new Menu(menu));
 	}
 	
 	@Override
