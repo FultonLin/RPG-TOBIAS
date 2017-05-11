@@ -8,13 +8,13 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class Map extends BasicGameState{
-	
+public class Play extends BasicGameState{
 	Image hero;
 	int heroX = 100;
 	int heroY = 100;
 	
-	public Map(int state){
+	 
+	public Play(int state) {
 		
 	}
 
@@ -47,6 +47,4 @@ public class Map extends BasicGameState{
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
-
 }
