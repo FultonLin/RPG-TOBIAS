@@ -6,7 +6,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Game extends StateBasedGame{
-	public static final String gameName = "SlickRun";
+	public static final String gamename = "SlickRun";
 	public static final int menu = 0;
 	public static final int play = 1;
 	
@@ -23,13 +23,12 @@ public class Game extends StateBasedGame{
 	public void initStatesList(GameContainer gc) throws SlickException {
 		this.getState(menu).init(gc, this);
 		this.getState(play).init(gc, this);
-		this.enterState(play);
+		this.enterState(menu);
 	}
 	
 	public static void main(String[] arge){
-		AppGameContainer appgc;
 		try {
-			appgc = new AppGameContainer(new Game(gameName));
+			AppGameContainer appgc = new AppGameContainer(new Game(gamename));
 			appgc.setDisplayMode(750, 750, false);
 			appgc.start();
 		} catch (Exception e) {

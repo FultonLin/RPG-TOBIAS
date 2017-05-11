@@ -9,9 +9,9 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Play extends BasicGameState{
-	Image hero;
-	int heroX = 100;
-	int heroY = 100;
+//	Image hero;
+//	int heroX = 100;
+//	int heroY = 100;
 	
 	 
 	public Play(int state) {
@@ -19,28 +19,28 @@ public class Play extends BasicGameState{
 	}
 
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-		hero = new Image("resources/Teemo.jpg");
+//		hero = new Image("resources/Teemo.jpg");
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-		g.drawImage(hero,heroX,heroY);
+//		g.drawImage(hero,heroX,heroY);
 		
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int a) throws SlickException {
-		Input input = gc.getInput();
-		if(input.isKeyDown(Input.KEY_UP)){
-			heroY -= 1;
-		}
-		if(input.isKeyDown(Input.KEY_DOWN)){
-			heroY += 1;
-		}
-		if(input.isKeyDown(Input.KEY_LEFT)){
-			heroX -= 1;
-		}
-		if(input.isKeyDown(Input.KEY_RIGHT)){
-			heroX += 1;
-		}	
+//		Input input = gc.getInput();
+//		if(input.isKeyDown(Input.KEY_UP)){
+//			heroY -= 1;
+//		}
+//		if(input.isKeyDown(Input.KEY_DOWN)){
+//			heroY += 1;
+//		}
+//		if(input.isKeyDown(Input.KEY_LEFT)){
+//			heroX -= 1;
+//		}
+//		if(input.isKeyDown(Input.KEY_RIGHT)){
+//			heroX += 1;
+//		}	
 	}
 
 	public int getID() {
