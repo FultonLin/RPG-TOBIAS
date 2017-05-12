@@ -24,7 +24,7 @@ public class Play extends BasicGameState{
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 //		g.drawImage(hero,heroX,heroY);
-		
+		 
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int a) throws SlickException {

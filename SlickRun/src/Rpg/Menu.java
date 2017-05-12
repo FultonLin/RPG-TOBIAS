@@ -4,7 +4,7 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
 public class Menu extends BasicGameState{
-	
+	 
 	public Menu(int state){
 		
 	}
