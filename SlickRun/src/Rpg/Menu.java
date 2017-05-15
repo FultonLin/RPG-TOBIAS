@@ -18,7 +18,7 @@ public class Menu extends BasicGameState{
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-		g.fillOval(100, 100, 50, 50);
+		g.fillRoundRect(300,300, 200, 100, 25);
 	}
 
 	@Override
@@ -26,7 +26,7 @@ public class Menu extends BasicGameState{
 		Input input = gc.getInput();
 		int xpos = Mouse.getX();
 		int ypos = Mouse.getY();
-		if(xpos > 100 && xpos < 150 && ypos > 550 && ypos < 650){
+		if(xpos > 300 && xpos < 500 && ypos > 300 && ypos < 500){
 			if(input.isMouseButtonDown(0)){
 				sbg.enterState(1);
 			}
