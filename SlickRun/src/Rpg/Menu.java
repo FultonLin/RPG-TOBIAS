@@ -1,5 +1,6 @@
 package Rpg;
 
+import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
@@ -17,16 +18,21 @@ public class Menu extends BasicGameState{
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-		// TODO Auto-generated method stub
-		
+		g.fillOval(100, 100, 50, 50);
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int a) throws SlickException {
-		// TODO Auto-generated method stub
-		
+		Input input = gc.getInput();
+		int xpos = Mouse.getX();
+		int ypos = Mouse.getY();
+		if(xpos > 100 && xpos < 150 && ypos > 630 && ypos < 730){
+			if(input.isMouseButtonDown(0)){
+				sbg.enterState(1);
+			}
+		}
 	}
-
+	
 	@Override
 	public int getID() {
 		// TODO Auto-generated method stub

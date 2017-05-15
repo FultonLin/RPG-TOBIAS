@@ -23,13 +23,13 @@ public class Game extends StateBasedGame{
 	public void initStatesList(GameContainer gc) throws SlickException {
 		this.getState(menu).init(gc, this);
 		this.getState(play).init(gc, this);
-		this.enterState(play);
+		this.enterState(menu);
 	}
 	
 	public static void main(String[] arge){
 		try {
 			AppGameContainer appgc = new AppGameContainer(new Game(gamename));
-			appgc.setDisplayMode(750, 750, false);
+			appgc.setDisplayMode(1280, 780, false);
 			appgc.start();
 		} catch (Exception e) {
 			e.printStackTrace();
