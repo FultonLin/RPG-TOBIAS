@@ -17,8 +17,8 @@ public class Play extends BasicGameState{
 	int[] animationFrame = {200,200};
 	float yuushaPositionX = 0;
 	float yuushaPositionY = 0;
-	float startX = yuushaPositionX+100;
-	float startY = yuushaPositionY+100;
+	float startX = yuushaPositionX+157;
+	float startY = yuushaPositionY+250;
 	
 	public Play(int state) {
 		
@@ -48,19 +48,31 @@ public class Play extends BasicGameState{
 		Input input = gc.getInput();
 		if(input.isKeyDown(Input.KEY_UP)){
 			yuusha = moveUp;
-			yuushaPositionY += a*.1f;
+			yuushaPositionY += a*.2f;
+			if(input.isKeyDown(Input.KEY_LSHIFT)){
+				yuushaPositionY += a*.4f;
+			}
 		}
 		if(input.isKeyDown(Input.KEY_DOWN)){
 			yuusha = moveDown;
-			yuushaPositionY -= a*.1f;
+			yuushaPositionY -= a*.2f;
+			if(input.isKeyDown(Input.KEY_LSHIFT)){
+				yuushaPositionY -= a*.4f;
+			}
 		}
 		if(input.isKeyDown(Input.KEY_LEFT)){
 			yuusha = moveLeft;
-			yuushaPositionX += a*.1f;
+			yuushaPositionX += a*.2f;
+			if(input.isKeyDown(Input.KEY_LSHIFT)){
+				yuushaPositionX += a*.4f;
+			}
 		}
 		if(input.isKeyDown(Input.KEY_RIGHT)){
 			yuusha = moveRight;
-			yuushaPositionX -= a*.1f;
+			yuushaPositionX -= a*.2f;
+			if(input.isKeyDown(Input.KEY_LSHIFT)){
+				yuushaPositionX -= a*.4f;
+			}
 		}	
 	}
 
