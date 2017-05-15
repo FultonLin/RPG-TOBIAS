@@ -25,11 +25,11 @@ public class Play extends BasicGameState{
 	}
 
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-		background = new Image("resources/shop.png");
-		Image[] walkUp = {new Image("resources/Potion1.png"), new Image("resources/Potion1.png")};
-		Image[] walkDown = {new Image("resources/Potion2.png"), new Image("resources/Potion2.png")};
-		Image[] walkLeft = {new Image("resources/Potion3.png"), new Image("resources/Potion3.png")};
-		Image[] walkRight = {new Image("resources/Potion4.png"), new Image("resources/Potion4.png")};
+		background = new Image("resources/testingmap.jpg");
+		Image[] walkUp = {new Image("resources/yuushaup.png"), new Image("resources/yuushaup.png")};
+		Image[] walkDown = {new Image("resources/yuushadown.png"), new Image("resources/yuushadown.png")};
+		Image[] walkLeft = {new Image("resources/yuushaleft.png"), new Image("resources/yuushaleft.png")};
+		Image[] walkRight = {new Image("resources/yuusharight.png"), new Image("resources/yuusharight.png")};
 		
 		moveUp = new Animation(walkUp,animationFrame,false);
 		moveDown = new Animation(walkDown,animationFrame,false);
@@ -41,7 +41,7 @@ public class Play extends BasicGameState{
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		background.draw(yuushaPositionX,yuushaPositionY);
 		yuusha.draw(startX,startY);		
-		g.drawString("X: "+yuushaPositionX+"\nY: "+yuushaPositionY,400,200);
+		g.drawString("X: "+yuushaPositionX+"\nY: "+yuushaPositionY,600,10);
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int a) throws SlickException {
