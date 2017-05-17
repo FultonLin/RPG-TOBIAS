@@ -13,7 +13,11 @@ public class Play extends BasicGameState{
 	
 	Animation yuusha,moveUp,moveDown,moveLeft,moveRight;
 	Image background;
-	Image chest;
+	Image chestone;
+	Image chesttwo;
+	Image chestthree;
+	Image chestfour;
+	
 	int[] animationFrame = {200,200};
 	float yuushaX = 0;
 	float yuushaY = 0;
@@ -30,6 +34,8 @@ public class Play extends BasicGameState{
 	}
 
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+		background = new Image("resources/testingmap.jpg");
+		
 		Image[] walkUp = {new Image("resources/yuushaup.png"), new Image("resources/yuushaup.png")};
 		Image[] walkDown = {new Image("resources/yuushadown.png"), new Image("resources/yuushadown.png")};
 		Image[] walkLeft = {new Image("resources/yuushaleft.png"), new Image("resources/yuushaleft.png")};
@@ -40,74 +46,90 @@ public class Play extends BasicGameState{
 		moveRight = new Animation(walkRight,animationFrame,false);
 		yuusha = moveDown;
 		
-		background = new Image("resources/testingmap.jpg");
-		chest = new Image("resources/chestclose.png");
+		chestone = new Image("resources/chestclose.png");
+		chesttwo = new Image("resources/chestclose.png");
+		chestthree = new Image("resources/chestclose.png");
+		chestfour = new Image("resources/chestclose.png");
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
+		background.draw(yuushaX,yuushaY);
 		yuusha.draw(startX,startY);		
 		g.drawString("X: "+yuushaX+"\nY: "+yuushaY,600,10);//hero coordinates
-		background.draw(yuushaX,yuushaY);
-		chest.draw(yuushaX+100,yuushaY+120);
+		chestone.draw(yuushaX+175,yuushaY+400);
+		chesttwo.draw(yuushaX+15,yuushaY+900);
+		chestthree.draw(yuushaX+755,yuushaY+1030);
+		chestfour.draw(yuushaX+1520,yuushaY+840);
 		
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int a) throws SlickException {
 		Input input = gc.getInput();
-		if(input.isKeyDown(Input.KEY_UP) && chest2 == true){
+		if(input.isKeyDown(Input.KEY_UP) && chest3 == true){
 			yuusha = moveUp;
 			yuushaY += a*.2f;
 			if(input.isKeyDown(Input.KEY_LSHIFT) && chest4 == true){
-				yuushaY += a*.4f;
+				yuushaY += a*.202f;
 			}
 		}
 		if(input.isKeyDown(Input.KEY_DOWN)){
 			yuusha = moveDown;
 			yuushaY -= a*.2f;
 			if(input.isKeyDown(Input.KEY_LSHIFT) && chest4 == true){
-				yuushaY -= a*.4f;
+				yuushaY -= a*.202f;
 			}
 		}
-		if(input.isKeyDown(Input.KEY_LEFT) && chest3 == true){
+		if(input.isKeyDown(Input.KEY_LEFT) && chest1 == true){
 			yuusha = moveLeft;
 			yuushaX += a*.2f;
 			if(input.isKeyDown(Input.KEY_LSHIFT) && chest4 == true){
-				yuushaX += a*.4f;
+				yuushaX += a*.202f;
 			}
 		}
-		if(input.isKeyDown(Input.KEY_RIGHT) && chest1 == true){
+		if(input.isKeyDown(Input.KEY_RIGHT) && chest2 == true){
 			yuusha = moveRight;
 			yuushaX -= a*.2f;
 			if(input.isKeyDown(Input.KEY_LSHIFT) && chest4 == true){
-				yuushaX -= a*.4f;
+				yuushaX -= a*.202f;
 			}
 		}
 		
 		if(input.isKeyDown(Input.KEY_SPACE)){
 			openChest(yuushaX,yuushaY);
-			chest = new Image("resources/chestopen.png");
 		}		
 	}
 
-	private void openChest(float X, float Y) {
-		if(X>100 && X<120 && Y>100 && Y<120){
+	private void openChest(float X, float Y) throws SlickException {
+		if(X>-10 && X<10 && Y>-100 && Y<-50){
+			if(chest1 != true){
+				System.out.println("You have unlocked the LEFT movement");
+			}
 			chest1 = true;
-			System.out.println("You have unlocked the RIGHT movement");
+			chestone = new Image("resources/chestopen.png");						
 		}
 		
-		if(X>100 && X<120 && Y>100 && Y<120){
+		if(X>150 && X<180 && Y>-610 && Y<-550){
+			if(chest2 != true){
+				System.out.println("You have unlocked the RIGHT movement");
+			}
 			chest2 = true;
-			System.out.println("You have unlocked the UP movement");
+			chesttwo = new Image("resources/chestopen.png");
 		}
 		
-		if(X>100 && X<120 && Y>100 && Y<120){
+		if(X>-600 && X<-540 && Y>-710 && Y<-665){
+			if(chest3 != true){
+				System.out.println("You have unlocked the UP movement");
+			}
 			chest3 = true;
-			System.out.println("You have unlocked the LEFT movement");
+			chestthree = new Image("resources/chestopen.png");
 		}
 		
-		if(X>100 && X<120 && Y>100 && Y<120){
+		if(X>-1380 && X<-1300 && Y>-530 && Y<-470){
+			if(chest4 != true){
+				System.out.println("You have unlocked RUN. Hold SHIFT to move faster");
+			}
 			chest4 = true;
-			System.out.println("You have unlocked RUN. Hold SHIFT to move faster");
+			chestfour = new Image("resources/chestopen.png");
 		}
 	}
 
