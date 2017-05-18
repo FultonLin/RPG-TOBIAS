@@ -1,4 +1,4 @@
-package Rpg;
+package rpg;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
