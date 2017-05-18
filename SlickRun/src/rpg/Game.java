@@ -9,20 +9,23 @@ public class Game extends StateBasedGame{
 	public static final String gamename = "SlickRun";
 	public static final int menu = 0;
 	public static final int play = 1;
-	
-	//this may be needed if we go turn based battle instead of world map battle
 	public static final int battle = 2;
+	public static final int inventory = 3;
 	
 	public Game(String gameName) {
 		super(gameName);
 		this.addState(new Menu(menu));
 		this.addState(new Play(play));
+		this.addState(new Battle(battle));
+		this.addState(new Inventory(inventory));
 	}
 	 
 	@Override
 	public void initStatesList(GameContainer gc) throws SlickException {
 		this.getState(menu).init(gc, this);
 		this.getState(play).init(gc, this);
+		this.getState(battle).init(gc, this);
+		this.getState(inventory).init(gc, this);
 		this.enterState(menu);
 	}
 	
