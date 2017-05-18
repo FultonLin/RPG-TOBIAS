@@ -6,19 +6,24 @@ import org.newdawn.slick.state.*;
 
 public class Menu extends BasicGameState{
 	 
+	Image play;
+	Image quit;
+	public String mouse;
+	
 	public Menu(int state){
 		
 	}
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-		// TODO Auto-generated method stub
-		
+		play = new Image("resources/playnow.png");
+		quit = new Image("resources/exit.png");
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-		g.fillRoundRect(300,300, 200, 100, 25);
+		play.draw(100,100, (float) .6);
+		quit.draw(100, 300);
 	}
 
 	@Override
@@ -26,7 +31,8 @@ public class Menu extends BasicGameState{
 		Input input = gc.getInput();
 		int xpos = Mouse.getX();
 		int ypos = Mouse.getY();
-		if(xpos > 300 && xpos < 500 && ypos > 300 && ypos < 500){
+		mouse = "x: " + xpos + " y: " + ypos; 
+		if(xpos > 100 && xpos < 500 && ypos > 300 && ypos < 500){
 			if(input.isMouseButtonDown(0)){
 				sbg.enterState(1);
 			}

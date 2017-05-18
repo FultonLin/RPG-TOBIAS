@@ -1,5 +1,7 @@
 package rpg;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -8,6 +10,8 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Inventory extends BasicGameState{
 
+	private ArrayList<Item> inven;
+	
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
 		// TODO Auto-generated method stub
