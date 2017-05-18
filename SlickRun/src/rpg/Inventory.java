@@ -10,11 +10,12 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Inventory extends BasicGameState{
 
-	private ArrayList<Item> inven;
+	private ArrayList<Item> invent;
+	private 
 	
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
-		// TODO Auto-generated method stub
+		invent = new ArrayList<Item>();
 		
 	}
 
@@ -32,8 +33,10 @@ public class Inventory extends BasicGameState{
 
 	@Override
 	public int getID() {
-		// TODO Auto-generated method stub
 		return 3;
 	}
-
+	
+	public void addItem(Item entity){
+		invent.add(entity);
+	}
 }
