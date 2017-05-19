@@ -7,9 +7,14 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Battle extends basicGameState{
-  
-  
-  @Override
+	
+	
+	
+	public Battle(){
+		
+	}
+	
+	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
 		// TODO Auto-generated method stub
 		
