@@ -11,12 +11,12 @@ import org.newdawn.slick.state.StateBasedGame;
 public class Inventory extends BasicGameState{
 
 	private ArrayList<Item> invent;
-	private 
+	private Item[] Equip;
 	
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
 		invent = new ArrayList<Item>();
-		
+		Equip = new Item[5]; 
 	}
 
 	@Override
