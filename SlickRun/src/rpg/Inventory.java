@@ -13,6 +13,10 @@ public class Inventory extends BasicGameState{
 	private ArrayList<Item> invent;
 	private Item[] Equip;
 	
+	public Inventory(int inventory) {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
 		invent = new ArrayList<Item>();
