@@ -60,11 +60,18 @@ public class Play extends BasicGameState{
 		chesttwo.draw(yuushaX+15,yuushaY+900);
 		chestthree.draw(yuushaX+755,yuushaY+1030);
 		chestfour.draw(yuushaX+1520,yuushaY+840);
-		
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int a) throws SlickException {
 		Input input = gc.getInput();
+		if(input.isKeyDown(Input.KEY_I)){
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			sbg.enterState(3);
+		}
 		if(input.isKeyDown(Input.KEY_UP) && chest3 == true){
 			yuusha = moveUp;
 			yuushaY += a*.2f;
@@ -104,6 +111,7 @@ public class Play extends BasicGameState{
 			if(chest1 != true){
 				System.out.println("You have unlocked the LEFT movement");
 			}
+//			Inventory.addItem(new Item("ASDFASED", 85));
 			chest1 = true;
 			chestone = new Image("resources/chestopen.png");						
 		}

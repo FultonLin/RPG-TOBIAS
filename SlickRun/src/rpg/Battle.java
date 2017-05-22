@@ -12,7 +12,7 @@ public class Battle extends BasicGameState{
 		
 	}
 	
-	@Override
+	@Override	
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
 		// TODO Auto-generated method stub
 		
@@ -25,7 +25,7 @@ public class Battle extends BasicGameState{
 	}
 
 	@Override
-	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException {
+	public void update(GameContainer arg0, StateBasedGame sbg, int arg2) throws SlickException {
 		// TODO Auto-generated method stub
 		
 	}

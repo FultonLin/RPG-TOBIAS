@@ -1,25 +1,25 @@
 package rpg;
 
-import java.util.ArrayList;
-
 public class Item implements ItemInterface{
 	
 	private String name;
-	private String[] properties;
+	private int attack;
+//	private String[] properties;
 
-	public Item(String name,String[] properties){
+	public Item(String name,int attack){
 		this.name = name;
-		this.properties = properties;
-	}
-	
-	@Override
-	public String getItem() {
-		return name;
+		this.attack = attack;
+//		this.properties = properties;
 	}
 
 	@Override
 	public String[] getProperties() {
-		return properties;
+//		return properties;
+		return null;
+	}
+	
+	public int getAttack(){
+		return attack;
 	}
 
 	@Override
