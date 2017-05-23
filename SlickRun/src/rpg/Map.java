@@ -11,7 +11,7 @@ public class Map extends BasicGameState {
 	
 	private TiledMap map;
 	
-	private int x,y;
+//	private int x,y;
 
 	public Map(int state) {
 		
@@ -24,13 +24,13 @@ public class Map extends BasicGameState {
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		map.render(0,0);
 		
-		g.fillRect(x*32,y*32,32,32);
+//		g.fillRect(x*32,y*32,32,32);
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int a) throws SlickException {
-		int objectLayer = map.getLayerIndex("Object Layer 1");
-		
-		map.getTileId(0,0,objectLayer);
+//		int objectLayer = map.getLayerIndex("Object");
+//		
+//		map.getTileId(0,0,objectLayer);
 	}
 
 	public int getID() {
