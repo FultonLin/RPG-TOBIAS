@@ -5,8 +5,12 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+
+import java.awt.Font;
+
 import org.newdawn.slick.Animation;
 
 public class Play extends BasicGameState{
@@ -28,6 +32,7 @@ public class Play extends BasicGameState{
 	boolean chest2 = false;
 	boolean chest3 = false;
 	boolean chest4 = false;
+	private TextField abc;
 	
 	public Play(int state) {
 		
@@ -50,6 +55,8 @@ public class Play extends BasicGameState{
 		chesttwo = new Image("resources/chestclose.png");
 		chestthree = new Image("resources/chestclose.png");
 		chestfour = new Image("resources/chestclose.png");
+		
+		abc = new TextField(gc, gc.getDefaultFont(), 12, 500, 1000, 80);
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
@@ -60,6 +67,8 @@ public class Play extends BasicGameState{
 		chesttwo.draw(yuushaX+15,yuushaY+900);
 		chestthree.draw(yuushaX+755,yuushaY+1030);
 		chestfour.draw(yuushaX+1520,yuushaY+840);
+		abc.render(gc, g);
+		g.drawRect(12, 500, 1000, 80);
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int a) throws SlickException {
@@ -77,6 +86,13 @@ public class Play extends BasicGameState{
 			yuushaY += a*.2f;
 			if(input.isKeyDown(Input.KEY_LSHIFT) && chest4 == true){
 				yuushaY += a*.202f;
+				if(yuushaY > 251){
+					yuushaY -= a*.202f;
+				}
+			}
+			//this is used to determine collision
+			if(yuushaY > 251){
+				yuushaY -= a*.2f;
 			}
 		}
 		if(input.isKeyDown(Input.KEY_DOWN)){
@@ -110,8 +126,9 @@ public class Play extends BasicGameState{
 		if(X>-10 && X<10 && Y>-100 && Y<-50){
 			if(chest1 != true){
 				System.out.println("You have unlocked the LEFT movement");
+				abc.setText(abc.getText()+"You have unlocked the LEFT movement");
 			}
-//			Inventory.addItem(new Item("ASDFASED", 85));
+			Inventory.addItem(new Item("ASDFASED", 85, 1));
 			chest1 = true;
 			chestone = new Image("resources/chestopen.png");						
 		}
@@ -119,6 +136,7 @@ public class Play extends BasicGameState{
 		if(X>150 && X<180 && Y>-610 && Y<-550){
 			if(chest2 != true){
 				System.out.println("You have unlocked the RIGHT movement");
+				abc.setText(abc.getText()+"\nYou have unlocked the RIGHT movement");
 			}
 			chest2 = true;
 			chesttwo = new Image("resources/chestopen.png");

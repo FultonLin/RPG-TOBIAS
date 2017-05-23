@@ -32,7 +32,7 @@ public class Game extends StateBasedGame{
 	public static void main(String[] arge){
 		try {
 			AppGameContainer appgc = new AppGameContainer(new Game(gamename));
-			appgc.setDisplayMode(1100, 700, false);
+			appgc.setDisplayMode(1024, 600, false);
 			appgc.start();
 		} catch (Exception e) {
 			e.printStackTrace();

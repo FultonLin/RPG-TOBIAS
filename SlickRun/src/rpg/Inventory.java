@@ -1,20 +1,24 @@
 package rpg;
 
+import java.awt.Font;
 import java.util.ArrayList;
 
-import org.newdawn.slick.Font;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Inventory extends BasicGameState{
 
-	private ArrayList<Item> inventory;
+	private static ArrayList<Item> inventory;
 	private Item[] Equip;
+	private TrueTypeFont font;
+	private TextField abc;
 	
 	public Inventory(int inventory) {
 		// TODO Auto-generated constructor stub
@@ -23,12 +27,17 @@ public class Inventory extends BasicGameState{
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		inventory = new ArrayList<Item>();
-		Equip = new Item[4]; 
+		Equip = new Item[4];
+		Font asd = new Font("Helvetica", Font.BOLD, 36);
+		font = new TrueTypeFont(asd , true);
+		abc = new TextField(gc, gc.getDefaultFont(), 50, 150, 300, 350);
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-		TrueTypeFont asd = new TrueTypeFont(Font.TRUETYPE_FONT, true);
+		abc.render(gc, g);
+		g.drawRect(50, 150, 300, 500);
+		font.drawString(75, 50, "Inventory", Color.green);
 	}
 
 	@Override
@@ -42,6 +51,9 @@ public class Inventory extends BasicGameState{
 			}
 			sbg.enterState(1);
 		}
+		for(int i = 0; i < inventory.size(); i++){
+			abc.setText(inventory.get(i).getName());
+		}
 	}
 
 	@Override
@@ -49,7 +61,7 @@ public class Inventory extends BasicGameState{
 		return 3;
 	}
 	
-	public void addItem(Item entity){
+	public static void addItem(Item entity){
 		inventory.add(entity);
 	}
 }

@@ -4,18 +4,13 @@ public class Item implements ItemInterface{
 	
 	private String name;
 	private int attack;
+	private int attackspd;
 //	private String[] properties;
 
-	public Item(String name,int attack){
+	public Item(String name, int attack, int attackspd){
 		this.name = name;
 		this.attack = attack;
-//		this.properties = properties;
-	}
-
-	@Override
-	public String[] getProperties() {
-//		return properties;
-		return null;
+		this.attackspd = attackspd;
 	}
 	
 	public int getAttack(){
@@ -26,6 +21,10 @@ public class Item implements ItemInterface{
 	public String getName() {
 		return name;
 	}
-	
+
+	@Override
+	public int getAttackSpd() {
+		return attackspd;
+	}
 	
 }
