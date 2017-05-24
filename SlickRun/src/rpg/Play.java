@@ -57,6 +57,7 @@ public class Play extends BasicGameState{
 		chestfour = new Image("resources/chestclose.png");
 		
 		abc = new TextField(gc, gc.getDefaultFont(), 12, 500, 1000, 80);
+		abc.setText("You can walk down");
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
@@ -73,6 +74,10 @@ public class Play extends BasicGameState{
 
 	public void update(GameContainer gc, StateBasedGame sbg, int a) throws SlickException {
 		Input input = gc.getInput();
+		if(input.isKeyDown(Input.KEY_ESCAPE)){
+			Menu.setStarting(true);
+			sbg.enterState(0);
+		}
 		if(input.isKeyDown(Input.KEY_I)){
 			try {
 				Thread.sleep(50);
@@ -119,14 +124,14 @@ public class Play extends BasicGameState{
 		
 		if(input.isKeyDown(Input.KEY_SPACE)){
 			openChest(yuushaX,yuushaY);
-		}		
+		}
 	}
 
 	private void openChest(float X, float Y) throws SlickException {
 		if(X>-10 && X<10 && Y>-100 && Y<-50){
 			if(chest1 != true){
 				System.out.println("You have unlocked the LEFT movement");
-				abc.setText(abc.getText()+"You have unlocked the LEFT movement");
+				abc.setText(abc.getText()+"\nYou have unlocked the LEFT movement");
 			}
 			Inventory.addItem(new Item("ASDFASED", 85, 1));
 			chest1 = true;
@@ -145,6 +150,7 @@ public class Play extends BasicGameState{
 		if(X>-600 && X<-540 && Y>-710 && Y<-665){
 			if(chest3 != true){
 				System.out.println("You have unlocked the UP movement");
+				abc.setText(abc.getText()+"\nYou have unlocked the UP movement");
 			}
 			chest3 = true;
 			chestthree = new Image("resources/chestopen.png");
@@ -153,6 +159,7 @@ public class Play extends BasicGameState{
 		if(X>-1380 && X<-1300 && Y>-530 && Y<-470){
 			if(chest4 != true){
 				System.out.println("You have unlocked RUN. Hold SHIFT to move faster");
+				abc.setText(abc.getText()+"\nYou have unlocked RUN. Hold SHIFT to move faster");
 			}
 			chest4 = true;
 			chestfour = new Image("resources/chestopen.png");
