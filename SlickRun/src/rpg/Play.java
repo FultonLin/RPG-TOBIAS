@@ -121,13 +121,13 @@ public class Play extends BasicGameState{
 			yuushaX += a*.2f;
 			if(input.isKeyDown(Input.KEY_LSHIFT) && chest4 == true){
 				yuushaX += a*.202f;
-//				if(yuushaX > 251){
-//					yuushaX -= a*.2f;
-//				}
+				if(yuushaX > 157){
+					yuushaX -= a*.2f;
+				}
 			}
-//			if(yuushaX < 251){
-//				yuushaX -= a*.2f;
-//			}
+			if(yuushaX > 157){
+				yuushaX -= a*.2f;
+			}
 		}
 		if(input.isKeyDown(Input.KEY_RIGHT) && chest2 == true){
 			yuusha = moveRight;
