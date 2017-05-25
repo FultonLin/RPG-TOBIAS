@@ -10,6 +10,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import java.awt.Font;
+import java.util.ArrayList;
 
 import org.newdawn.slick.Animation;
 
@@ -33,6 +34,10 @@ public class Play extends BasicGameState{
 	boolean chest3 = false;
 	boolean chest4 = false;
 	private TextField abc;
+	private ArrayList<Monster> mob;
+	private int hp;
+	private int dmg;
+	
 	
 	public Play(int state) {
 		
@@ -58,6 +63,10 @@ public class Play extends BasicGameState{
 		
 		abc = new TextField(gc, gc.getDefaultFont(), 12, 500, 1000, 80);
 		abc.setText("You can walk down");
+		mob = new ArrayList<Monster>();
+		populateMap();
+		hp = 100;
+		dmg = 10;
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
@@ -75,7 +84,6 @@ public class Play extends BasicGameState{
 	public void update(GameContainer gc, StateBasedGame sbg, int a) throws SlickException {
 		Input input = gc.getInput();
 		if(input.isKeyDown(Input.KEY_ESCAPE)){
-			Menu.setStarting(true);
 			sbg.enterState(0);
 		}
 		if(input.isKeyDown(Input.KEY_I)){
@@ -106,13 +114,20 @@ public class Play extends BasicGameState{
 			if(input.isKeyDown(Input.KEY_LSHIFT) && chest4 == true){
 				yuushaY -= a*.202f;
 			}
+			
 		}
 		if(input.isKeyDown(Input.KEY_LEFT) && chest1 == true){
 			yuusha = moveLeft;
 			yuushaX += a*.2f;
 			if(input.isKeyDown(Input.KEY_LSHIFT) && chest4 == true){
 				yuushaX += a*.202f;
+//				if(yuushaX > 251){
+//					yuushaX -= a*.2f;
+//				}
 			}
+//			if(yuushaX < 251){
+//				yuushaX -= a*.2f;
+//			}
 		}
 		if(input.isKeyDown(Input.KEY_RIGHT) && chest2 == true){
 			yuusha = moveRight;
@@ -130,17 +145,15 @@ public class Play extends BasicGameState{
 	private void openChest(float X, float Y) throws SlickException {
 		if(X>-10 && X<10 && Y>-100 && Y<-50){
 			if(chest1 != true){
-				System.out.println("You have unlocked the LEFT movement");
 				abc.setText(abc.getText()+"\nYou have unlocked the LEFT movement");
 			}
-			Inventory.addItem(new Item("ASDFASED", 85, 1));
+			Inventory.inventory.add(new Item("ASDFASED", 85, 1));
 			chest1 = true;
-			chestone = new Image("resources/chestopen.png");						
+			chestone = new Image("resources/chestopen.png");					
 		}
 		
 		if(X>150 && X<180 && Y>-610 && Y<-550){
 			if(chest2 != true){
-				System.out.println("You have unlocked the RIGHT movement");
 				abc.setText(abc.getText()+"\nYou have unlocked the RIGHT movement");
 			}
 			chest2 = true;
@@ -149,7 +162,6 @@ public class Play extends BasicGameState{
 		
 		if(X>-600 && X<-540 && Y>-710 && Y<-665){
 			if(chest3 != true){
-				System.out.println("You have unlocked the UP movement");
 				abc.setText(abc.getText()+"\nYou have unlocked the UP movement");
 			}
 			chest3 = true;
@@ -158,16 +170,18 @@ public class Play extends BasicGameState{
 		
 		if(X>-1380 && X<-1300 && Y>-530 && Y<-470){
 			if(chest4 != true){
-				System.out.println("You have unlocked RUN. Hold SHIFT to move faster");
 				abc.setText(abc.getText()+"\nYou have unlocked RUN. Hold SHIFT to move faster");
 			}
 			chest4 = true;
 			chestfour = new Image("resources/chestopen.png");
 		}
 	}
+	
+	private void populateMap() {
+		mob.add(new Monster("Chest", 10, 1, 2, 200, 200, 100, 100));
+	}
 
 	public int getID() {
-		// TODO Auto-generated method stub
 		return 1;
 	}
 }

@@ -12,7 +12,6 @@ public class Menu extends BasicGameState{
 	 
 	Image play;
 	Image quit;
-	private boolean starting;
 	public String mouse;
 	private TrueTypeFont font;
 	private String thingy;
@@ -30,9 +29,10 @@ public class Menu extends BasicGameState{
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
+//		gc.setShowFPS(false);
 		Display.setInitialBackground( 0,  0,  0);
-		font.drawString(425, 200, "Play Game", Color.white);
-		font.drawString(425, 300, "Quit Game", Color.white);
+		font.drawString((1024/2)-(font.getWidth(thingy)/2), 200, thingy, Color.white);
+		font.drawString((1024/2)-(font.getWidth("Quit Game")/2), 300, "Quit Game", Color.white);
 	}
 
 	@Override
@@ -41,9 +41,11 @@ public class Menu extends BasicGameState{
 		int xpos = Mouse.getX();
 		int ypos = Mouse.getY();
 		mouse = "x: " + xpos + " y: " + ypos; 
-		if(xpos > 425 && xpos < 425+font.getWidth("Play Game") && ypos > 400-font.getHeight("Play Game") && ypos < 400){
+		if(xpos > 425 && xpos < 425+font.getWidth(thingy) && ypos > 400-font.getHeight(thingy) && ypos < 400){
 			if(input.isMouseButtonDown(0)){
 				sbg.enterState(1);
+				
+				thingy = "Resume Game";
 			}
 		}
 		if(xpos > 425 && xpos < 425+font.getWidth("Quit Game") && ypos > 300-font.getHeight("Quit Game") && ypos < 300){
@@ -51,9 +53,7 @@ public class Menu extends BasicGameState{
 				System.exit(0);
 			}
 		}
-		if(starting = true){
-			thingy = "Resume Game";
-		}
+
 	}
 	
 	@Override
@@ -61,10 +61,5 @@ public class Menu extends BasicGameState{
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-	public static void setStarting(boolean starting) {
-		this.starting = starting;
-	}
 	
-
 }
