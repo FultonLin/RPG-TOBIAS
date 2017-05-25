@@ -16,8 +16,10 @@ public class Map extends BasicGameState {
 	private double x,y;
 	private int mapX = 11,mapY = 49;
 	
-	private Animation yuusha,moveUp,moveDown,moveLeft,moveRight;
-	private int[] animationFrame = {200,200};
+//	private Animation yuusha,moveUp,moveDown,moveLeft,moveRight;
+//	private int[] animationFrame = {200,200};
+	private Animation moveUp,moveDown,moveLeft,moveRight;
+	Image yuusha;
 	
 	private Image loading;
 	int time = 0;
@@ -33,17 +35,37 @@ public class Map extends BasicGameState {
 		x = 0;
 		y = 0;
 		
-		Image[] walkUp = {new Image("resources/TiledMap/yuusha32/yuushaup.png"), new Image("resources/TiledMap/yuusha32/yuushaup.png")};
-		Image[] walkDown = {new Image("resources/TiledMap/yuusha32/yuushadown.png"), new Image("resources/TiledMap/yuusha32/yuushadown.png")};
-		Image[] walkLeft = {new Image("resources/TiledMap/yuusha32/yuushaleft.png"), new Image("resources/TiledMap/yuusha32/yuushaleft.png")};
-		Image[] walkRight = {new Image("resources/TiledMap/yuusha32/yuusharight.png"), new Image("resources/TiledMap/yuusha32/yuusharight.png")};
-		moveUp = new Animation(walkUp,animationFrame,false);
-		moveDown = new Animation(walkDown,animationFrame,false);
-		moveLeft = new Animation(walkLeft,animationFrame,false);
-		moveRight = new Animation(walkRight,animationFrame,false);
-		yuusha = moveDown;
+//		Image[] walkUp = {new Image("resources/TiledMap/yuusha32/yuushaup.png"), new Image("resources/TiledMap/yuusha32/yuushaup.png")};
+//		Image[] walkDown = {new Image("resources/TiledMap/yuusha32/yuushadown.png"), new Image("resources/TiledMap/yuusha32/yuushadown.png")};
+//		Image[] walkLeft = {new Image("resources/TiledMap/yuusha32/yuushaleft.png"), new Image("resources/TiledMap/yuusha32/yuushaleft.png")};
+//		Image[] walkRight = {new Image("resources/TiledMap/yuusha32/yuusharight.png"), new Image("resources/TiledMap/yuusha32/yuusharight.png")};
+//		moveUp = new Animation(walkUp,animationFrame,false);
+//		moveDown = new Animation(walkDown,animationFrame,false);
+//		moveLeft = new Animation(walkLeft,animationFrame,false);
+//		moveRight = new Animation(walkRight,animationFrame,false);
+//		yuusha = moveDown;
+		yuusha = new Image("resources/yuushaanimation.png");
+		moveUp = getAnimation(yuusha,4,1,32,32,4,100);
+		moveDown = getAnimation(yuusha,4,2,32,32,4,100);
+		moveLeft = getAnimation(yuusha,4,3,32,32,4,100);
+		moveRight = getAnimation(yuusha,4,4,32,32,4,100);
 		
 		loading = new Image("resources/loadingbar.jpg");
+	}
+
+	private Animation getAnimation(Image yuusha,int spriteX,int spriteY,int spriteWidth,int spriteHeight,int frames,int duration) {
+		Animation b = new Animation(false);
+		
+		int c = 0;
+		for(int y = 0;y<spriteY;y++){
+			for(int x = 0;x<spriteX;x++){
+				if(c<frames){
+					b.addFrame(yuusha.getSubImage(x*spriteWidth,y*spriteHeight,spriteWidth,spriteHeight), duration);
+				}	
+				c++;
+			}
+		}
+		return b;
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
