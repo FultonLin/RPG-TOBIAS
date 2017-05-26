@@ -29,7 +29,7 @@ public class Menu extends BasicGameState{
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-//		gc.setShowFPS(false);
+		gc.setShowFPS(false);
 		Display.setInitialBackground( 0, 0, 0);
 		font.drawString((1024/2)-(font.getWidth(thingy)/2), 200, thingy, Color.white);
 		font.drawString((1024/2)-(font.getWidth("Quit Game")/2), 300, "Quit Game", Color.white);

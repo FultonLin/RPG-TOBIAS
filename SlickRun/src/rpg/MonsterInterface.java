@@ -9,4 +9,5 @@ public interface MonsterInterface {
 	public int getypos();
 	public int getWidth();
 	public int getHeight();
+	public int getAttkSpd();
 }

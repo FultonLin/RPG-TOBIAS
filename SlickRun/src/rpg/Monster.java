@@ -10,9 +10,10 @@ public class Monster implements MonsterInterface{
 	private int ypos;
 	private int width;
 	private int height;
+	private int atkSpd;
 	
 	
-	public Monster (String name, int hp, int dmg, int spd, int xpos, int ypos, int height, int width){
+	public Monster (String name, int hp, int dmg, int spd, int atkSpd, int xpos, int ypos, int height, int width){
 		this.name = name;
 		this.hp = hp;
 		this.dmg = dmg;
@@ -21,6 +22,7 @@ public class Monster implements MonsterInterface{
 		this.ypos = ypos;
 		this.height = height;
 		this.width = width;
+		this.atkSpd = atkSpd;
 	}
 
 	@Override
@@ -59,5 +61,10 @@ public class Monster implements MonsterInterface{
 	@Override
 	public int getHeight() {
 		return height;
+	}
+
+	@Override
+	public int getAttkSpd() {
+		return atkSpd;
 	}
 }

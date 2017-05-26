@@ -5,6 +5,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -13,6 +14,7 @@ import java.awt.Font;
 import java.util.ArrayList;
 
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Color;
 
 public class Play extends BasicGameState{
 	
@@ -35,12 +37,14 @@ public class Play extends BasicGameState{
 	boolean chest4 = false;
 	private TextField abc;
 	private ArrayList<Monster> mob;
-	private int hp;
-	private int dmg;
+	private int hp = 100;
+	private int dmg = 10;
+	private TrueTypeFont font;
+	private int atkSpd = 500;
 	
 	
 	public Play(int state) {
-		
+				
 	}
 
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
@@ -65,8 +69,8 @@ public class Play extends BasicGameState{
 		abc.setText("You can walk down");
 		mob = new ArrayList<Monster>();
 		populateMap();
-		hp = 100;
-		dmg = 10;
+		Font asd = new Font("Helvetica", Font.BOLD, 24);
+		font = new TrueTypeFont(asd , true);
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
@@ -78,7 +82,10 @@ public class Play extends BasicGameState{
 		chestthree.draw(yuushaX+755,yuushaY+1030);
 		chestfour.draw(yuushaX+1520,yuushaY+840);
 		abc.render(gc, g);
+		font.drawString(50, 50, "HP:" + hp, Color.white);
 		g.drawRect(12, 500, 1000, 80);
+		g.drawRect(300, 300, 100, 100);
+		
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int a) throws SlickException {
@@ -140,6 +147,18 @@ public class Play extends BasicGameState{
 		if(input.isKeyDown(Input.KEY_SPACE)){
 			openChest(yuushaX,yuushaY);
 		}
+		
+		for(int i = 0; i < mob.size(); i++){
+			Monster pl = mob.get(i);
+			if(yuushaX > pl.getxpos() && yuushaX < pl.getxpos()+ pl.getWidth() && yuushaY > pl.getypos() && yuushaY < pl.getypos()+pl.getHeight()){
+				hp -= pl.getdmg();
+				try {
+					Thread.sleep(pl.getAttkSpd());
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 	private void openChest(float X, float Y) throws SlickException {
@@ -178,7 +197,7 @@ public class Play extends BasicGameState{
 	}
 	
 	private void populateMap() {
-		mob.add(new Monster("Chest", 10, 1, 2, 200, 200, 100, 100));
+		mob.add(new Monster("Chest", 10, 1, 2, 500, -300, -400, 100, 100));
 	}
 
 	public int getID() {
