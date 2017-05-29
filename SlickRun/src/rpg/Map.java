@@ -11,16 +11,14 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 
 public class Map extends BasicGameState {
-		
+	
+	//MAP
 	private TiledMap map;
 	private double x,y;
 	private int mapX = 11,mapY = 49;
-	
-//	private Animation yuusha,moveUp,moveDown,moveLeft,moveRight;
-//	private int[] animationFrame = {200,200};
-	private Animation moveUp,moveDown,moveLeft,moveRight;
-	Image yuusha;
-	
+	//CHARACTER
+	private Animation yuusha,moveUp,moveDown,moveLeft,moveRight;
+	//LOADING BAR
 	private Image loading;
 	int time = 0;
 	int duration = 2000;
@@ -30,37 +28,35 @@ public class Map extends BasicGameState {
 	}
  
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+		//MAP-display
 		map = new TiledMap("resources/TiledMap/rpgmap.tmx");
-		
 		x = 0;
 		y = 0;
 		
-//		Image[] walkUp = {new Image("resources/TiledMap/yuusha32/yuushaup.png"), new Image("resources/TiledMap/yuusha32/yuushaup.png")};
-//		Image[] walkDown = {new Image("resources/TiledMap/yuusha32/yuushadown.png"), new Image("resources/TiledMap/yuusha32/yuushadown.png")};
-//		Image[] walkLeft = {new Image("resources/TiledMap/yuusha32/yuushaleft.png"), new Image("resources/TiledMap/yuusha32/yuushaleft.png")};
-//		Image[] walkRight = {new Image("resources/TiledMap/yuusha32/yuusharight.png"), new Image("resources/TiledMap/yuusha32/yuusharight.png")};
-//		moveUp = new Animation(walkUp,animationFrame,false);
-//		moveDown = new Animation(walkDown,animationFrame,false);
-//		moveLeft = new Animation(walkLeft,animationFrame,false);
-//		moveRight = new Animation(walkRight,animationFrame,false);
-//		yuusha = moveDown;
-		yuusha = new Image("resources/yuushaanimation.png");
-		moveUp = getAnimation(yuusha,4,1,32,32,4,100);
-		moveDown = getAnimation(yuusha,4,2,32,32,4,100);
-		moveLeft = getAnimation(yuusha,4,3,32,32,4,100);
-		moveRight = getAnimation(yuusha,4,4,32,32,4,100);
+		//CHARACTER-animation movement
+		Image yuushasprite1 = new Image("resources/yuushaanimation/yuushaup.png");
+		Image yuushasprite2 = new Image("resources/yuushaanimation/yuushadown.png");
+		Image yuushasprite3 = new Image("resources/yuushaanimation/yuushaleft.png");
+		Image yuushasprite4 = new Image("resources/yuushaanimation/yuusharight.png");
 		
+		moveUp = getAnimation(yuushasprite1,4,1,32,40,3,200);
+		moveDown = getAnimation(yuushasprite2,4,1,32,40,3,200);
+		moveLeft = getAnimation(yuushasprite3,4,1,32,40,3,200);
+		moveRight = getAnimation(yuushasprite4,4,1,32,40,3,200);
+		yuusha = moveDown;
+		
+		//LOADING BAR
 		loading = new Image("resources/loadingbar.jpg");
 	}
 
-	private Animation getAnimation(Image yuusha,int spriteX,int spriteY,int spriteWidth,int spriteHeight,int frames,int duration) {
+	private Animation getAnimation(Image i,int spriteX,int spriteY,int spriteWidth,int spriteHeight,int frames,int duration) {
 		Animation b = new Animation(false);
 		
 		int c = 0;
 		for(int y = 0;y<spriteY;y++){
 			for(int x = 0;x<spriteX;x++){
 				if(c<frames){
-					b.addFrame(yuusha.getSubImage(x*spriteWidth,y*spriteHeight,spriteWidth,spriteHeight), duration);
+					b.addFrame(i.getSubImage(x*spriteWidth,y*spriteHeight,spriteWidth,spriteHeight), duration);
 				}	
 				c++;
 			}
@@ -69,8 +65,11 @@ public class Map extends BasicGameState {
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
+		//MAP
 		map.render((int)x-32,(int)y-32,mapX,mapY,mapX+27,mapY+27);
-		yuusha.draw(380,280);
+		//CHARACTER
+		yuusha.draw(385,274);
+		//LOADING BAR-display time
 		if (time<duration) {
 			loading.draw(0,0,1.5f);
 		}	
@@ -80,12 +79,14 @@ public class Map extends BasicGameState {
 //		int layer = map.getLayerIndex("Tile Layer 1");
 //		
 //		map.getTileId(0,0,layer);
+		//CHARACTER-keyboard input
 		Input input = gc.getInput();
 		if(input.isKeyDown(Input.KEY_UP)){
 //			if(map.getTileId(x,y-1,layer) == 0){
 //				y--;
 //			}
 			yuusha = moveUp;
+			yuusha.update(a);
 			y += a/4.0f;
 		}
 		if(input.isKeyDown(Input.KEY_DOWN)){
@@ -93,6 +94,7 @@ public class Map extends BasicGameState {
 //				y++;
 //			}
 			yuusha = moveDown;
+			yuusha.update(a);
 			y -= a/4.0f;
 		}
 		if(input.isKeyDown(Input.KEY_LEFT)){
@@ -100,6 +102,7 @@ public class Map extends BasicGameState {
 //				x--;
 //			}
 			yuusha = moveLeft;
+			yuusha.update(a);
 			x += a/4.0f;
 		}
 		if(input.isKeyDown(Input.KEY_RIGHT)){
@@ -107,9 +110,10 @@ public class Map extends BasicGameState {
 //				x++;
 //			}
 			yuusha = moveRight;
+			yuusha.update(a);
 			x -= a/4.0f;
 		}
-		//rendering map with movement
+		// MAP-rendering with movement
 		if(x<0){
 			mapX++;
 			x = 32;
@@ -126,7 +130,7 @@ public class Map extends BasicGameState {
 			mapY--;
 			y = 0;
 		}
-		
+		//LOADING BAR
 		time += a;
 	}
 
