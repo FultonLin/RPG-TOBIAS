@@ -1,11 +1,14 @@
 package rpg;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
@@ -16,8 +19,12 @@ public class Map extends BasicGameState {
 	private TiledMap map;
 	private double x,y;
 	private int mapX = 11,mapY = 49;
+	
+	private boolean blocked[][];
+//	private ArrayList<Rectangle> blocks;
 	//CHARACTER
 	private Animation yuusha,moveUp,moveDown,moveLeft,moveRight;
+	private double yuushaX = 24,yuushaY = 59;
 	//LOADING BAR
 	private Image loading;
 	int time = 0;
@@ -74,44 +81,83 @@ public class Map extends BasicGameState {
 			loading.draw(0,0,1.5f);
 		}	
 	}
-
+	
+	public void collisionRect() {
+		blocked = new boolean[map.getWidth()][map.getHeight()];
+		int layer = map.getLayerIndex("ObjectLayer");
+		for(int x = 0; x < map.getWidth(); x++) {
+		    for(int y = 0; y < map.getHeight(); y++) {
+		        int tileID = map.getTileId(x, y, layer);
+//		        String value = map.getTileProperty(tileID, "blocked", "false");
+//		        if(value.equals("true")) {
+//		            blocked[x][y] = true;
+//		            blocks.add(new Rectangle((float)x*32,(float)y*32,32,32));
+//		        }
+		        if(tileID != 0){
+		        	blocked[x][y] = true;
+		        }
+		    }
+		}
+	}
+	
+	public boolean checkCollision(double x, double y) {
+		for(int i = 0; i < blocked.length; i++) {
+			for(int j = 0; j < blocked[i].length; j++) {
+				if(blocked[i][j] == true && i == x && j ==y) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	
 	public void update(GameContainer gc, StateBasedGame sbg, int a) throws SlickException {
-//		int layer = map.getLayerIndex("Tile Layer 1");
-//		
-//		map.getTileId(0,0,layer);
+		collisionRect();
+//		map.getTileId(0,0,layer);	
+		
+//		boolean isInCollision = false;
+//		for(Rectangle ret in map.getBlocks()) {
+//		    if(yuusha.bounds.intersects(ret.bounds)) {
+//		        isInCollision = true;
+//		    }
+//		}
 		//CHARACTER-keyboard input
 		Input input = gc.getInput();
 		if(input.isKeyDown(Input.KEY_UP)){
-//			if(map.getTileId(x,y-1,layer) == 0){
-//				y--;
-//			}
-			yuusha = moveUp;
-			yuusha.update(a);
-			y += a/4.0f;
+			if(checkCollision(yuushaX,yuushaY-1)==true){
+				yuusha = moveUp;
+				yuusha.update(a);
+				yuushaY--;
+				y++;
+			}
+//			y += a/4.0f;
 		}
 		if(input.isKeyDown(Input.KEY_DOWN)){
-//			if(map.getTileId(x,y+1,layer) == 0){
-//				y++;
-//			}
-			yuusha = moveDown;
-			yuusha.update(a);
-			y -= a/4.0f;
+			if(checkCollision(yuushaX,yuushaY+1)==true){
+				yuusha = moveDown;
+				yuusha.update(a);
+				yuushaY++;
+				y--;
+			}
+//			y -= a/4.0f;
 		}
 		if(input.isKeyDown(Input.KEY_LEFT)){
-//			if(map.getTileId(x-1,y,layer) == 0){
-//				x--;
-//			}
-			yuusha = moveLeft;
-			yuusha.update(a);
-			x += a/4.0f;
+			if(checkCollision(yuushaX-1,yuushaY)==true){
+				yuusha = moveLeft;
+				yuusha.update(a);
+				yuushaX--;
+				x++;
+			}
+//			x += a/4.0f;
 		}
 		if(input.isKeyDown(Input.KEY_RIGHT)){
-//			if(map.getTileId(x+1,y,layer) == 0){
-//				x++;
-//			}
-			yuusha = moveRight;
-			yuusha.update(a);
-			x -= a/4.0f;
+			if(checkCollision(yuushaX+1,yuushaY)==true){
+				yuusha = moveRight;
+				yuusha.update(a);
+				yuushaX++;
+				x--;
+			}
+//			x -= a/4.0f;
 		}
 		// MAP-rendering with movement
 		if(x<0){
