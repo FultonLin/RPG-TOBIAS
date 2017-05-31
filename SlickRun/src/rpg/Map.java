@@ -24,7 +24,7 @@ public class Map extends BasicGameState {
 //	private ArrayList<Rectangle> blocks;
 	//CHARACTER
 	private Animation yuusha,moveUp,moveDown,moveLeft,moveRight;
-	private double yuushaX = 24,yuushaY = 59;
+	private double yuushaX,yuushaY;
 	//LOADING BAR
 	private Image loading;
 	int time = 0;
@@ -33,10 +33,12 @@ public class Map extends BasicGameState {
 	public Map(int state) {
 			
 	}
- 
+	Input input;
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		//MAP-display
 		map = new TiledMap("resources/TiledMap/rpgmap.tmx");
+		input = gc.getInput();
+		collisionRect();
 		x = 0;
 		y = 0;
 		
@@ -84,23 +86,34 @@ public class Map extends BasicGameState {
 	
 	public void collisionRect() {
 		blocked = new boolean[map.getWidth()][map.getHeight()];
-		int layer = map.getLayerIndex("ObjectLayer");
+		System.out.println("Dimensions: "+map.getWidth()+", "+map.getHeight());
+		int objectlayer = map.getLayerIndex("ObjectLayer");
+		int firstlayer = map.getLayerIndex("FirstLayer");
 		for(int x = 0; x < map.getWidth(); x++) {
 		    for(int y = 0; y < map.getHeight(); y++) {
-		        int tileID = map.getTileId(x, y, layer);
+		        int tileID = map.getTileId(x, y, objectlayer);
+		        int tileID2 = map.getTileId(x, y, firstlayer);
 //		        String value = map.getTileProperty(tileID, "blocked", "false");
 //		        if(value.equals("true")) {
 //		            blocked[x][y] = true;
 //		            blocks.add(new Rectangle((float)x*32,(float)y*32,32,32));
 //		        }
 		        if(tileID != 0){
-		        	blocked[x][y] = true;
+//		        if(tileID != 0 || tileID2 != 0){
+		        	System.out.println("Object found at  "+x+", "+y);
+		        	if(blocked[x][y] != true){
+		        		blocked[x][y] = true;
+		        	}
 		        }
 		    }
 		}
 	}
 	
 	public boolean checkCollision(double x, double y) {
+		System.out.println("x is "+x);
+		x = (int)((x)/32)+24;
+		y = (int)((y)/32)+59;
+		System.out.println("Checking for Collision at "+x+", "+y);
 		for(int i = 0; i < blocked.length; i++) {
 			for(int j = 0; j < blocked[i].length; j++) {
 				if(blocked[i][j] == true && i == x && j ==y) {
@@ -112,7 +125,6 @@ public class Map extends BasicGameState {
 	}
 	
 	public void update(GameContainer gc, StateBasedGame sbg, int a) throws SlickException {
-		collisionRect();
 //		map.getTileId(0,0,layer);	
 		
 //		boolean isInCollision = false;
@@ -122,7 +134,6 @@ public class Map extends BasicGameState {
 //		    }
 //		}
 		//CHARACTER-keyboard input
-		Input input = gc.getInput();
 		if(input.isKeyDown(Input.KEY_UP)){
 			if(checkCollision(yuushaX,yuushaY-1)==true){
 				yuusha = moveUp;
