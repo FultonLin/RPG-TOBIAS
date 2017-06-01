@@ -19,6 +19,9 @@ public class Map extends BasicGameState {
 	private TiledMap map;
 	private double x,y;
 	private int mapX = 11,mapY = 49;
+	private Image chest;
+	private boolean chestopen = false;
+	private int chestX = 0,chestY = 0;
 	
 	private boolean blocked[][];
 //	private ArrayList<Rectangle> blocks;
@@ -41,6 +44,9 @@ public class Map extends BasicGameState {
 		collisionRect();
 		x = 0;
 		y = 0;
+	
+		chest = new Image("resources/chestopen.png");
+		
 		
 		//CHARACTER-animation movement
 		Image yuushasprite1 = new Image("resources/yuushaanimation/yuushaup.png");
@@ -76,6 +82,7 @@ public class Map extends BasicGameState {
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		//MAP
 		map.render((int)x-32,(int)y-32,mapX,mapY,mapX+27,mapY+27);
+		chest.draw(chestX,chestY);
 		//CHARACTER
 		yuusha.draw(385,274);
 		//LOADING BAR-display time
@@ -88,11 +95,11 @@ public class Map extends BasicGameState {
 		blocked = new boolean[map.getWidth()][map.getHeight()];
 		System.out.println("Dimensions: "+map.getWidth()+", "+map.getHeight());
 		int objectlayer = map.getLayerIndex("ObjectLayer");
-		int firstlayer = map.getLayerIndex("FirstLayer");
+//		int firstlayer = map.getLayerIndex("FirstLayer");
 		for(int x = 0; x < map.getWidth(); x++) {
 		    for(int y = 0; y < map.getHeight(); y++) {
 		        int tileID = map.getTileId(x, y, objectlayer);
-		        int tileID2 = map.getTileId(x, y, firstlayer);
+//		        int tileID2 = map.getTileId(x, y, firstlayer);
 //		        String value = map.getTileProperty(tileID, "blocked", "false");
 //		        if(value.equals("true")) {
 //		            blocked[x][y] = true;
@@ -135,7 +142,7 @@ public class Map extends BasicGameState {
 //		}
 		//CHARACTER-keyboard input
 		if(input.isKeyDown(Input.KEY_UP)){
-			if(checkCollision(yuushaX,yuushaY-1)==true){
+			if(checkCollision(yuushaX,yuushaY-1) == true){
 				yuusha = moveUp;
 				yuusha.update(a);
 				yuushaY--;
@@ -144,7 +151,7 @@ public class Map extends BasicGameState {
 //			y += a/4.0f;
 		}
 		if(input.isKeyDown(Input.KEY_DOWN)){
-			if(checkCollision(yuushaX,yuushaY+1)==true){
+			if(checkCollision(yuushaX,yuushaY+1) == true){
 				yuusha = moveDown;
 				yuusha.update(a);
 				yuushaY++;
@@ -153,7 +160,7 @@ public class Map extends BasicGameState {
 //			y -= a/4.0f;
 		}
 		if(input.isKeyDown(Input.KEY_LEFT)){
-			if(checkCollision(yuushaX-1,yuushaY)==true){
+			if(checkCollision(yuushaX-1,yuushaY) == true){
 				yuusha = moveLeft;
 				yuusha.update(a);
 				yuushaX--;
@@ -162,13 +169,20 @@ public class Map extends BasicGameState {
 //			x += a/4.0f;
 		}
 		if(input.isKeyDown(Input.KEY_RIGHT)){
-			if(checkCollision(yuushaX+1,yuushaY)==true){
+			if(checkCollision(yuushaX+1,yuushaY) == true){
 				yuusha = moveRight;
 				yuusha.update(a);
 				yuushaX++;
 				x--;
 			}
 //			x -= a/4.0f;
+		}
+		if(input.isKeyDown(Input.KEY_SPACE)){
+			if(checkCollision(yuushaX,yuushaY-1)==false || checkCollision(yuushaX,yuushaY+1)==false ||
+					checkCollision(yuushaX-1,yuushaY)==false || checkCollision(yuushaX+1,yuushaY)==false){
+				System.out.println("UNLOCKED");
+				objectInteraction();
+			}
 		}
 		// MAP-rendering with movement
 		if(x<0){
@@ -189,6 +203,15 @@ public class Map extends BasicGameState {
 		}
 		//LOADING BAR
 		time += a;
+	}
+
+	private void objectInteraction() {
+		if(checkCollision(yuushaX,yuushaY) == false){
+			chestopen = true;
+			chestX = (int) yuushaX;
+			chestY = (int) yuushaY;
+		}
+		
 	}
 
 	public int getID() {
