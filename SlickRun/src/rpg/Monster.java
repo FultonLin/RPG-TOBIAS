@@ -1,7 +1,8 @@
 package rpg;
 
-public class Monster implements MonsterInterface{
+public class Monster implements MonsterInterface,Runnable{
 	
+	private Play target;
 	private String name;
 	private int hp;
 	private int dmg;
@@ -66,5 +67,30 @@ public class Monster implements MonsterInterface{
 	@Override
 	public int getAttkSpd() {
 		return atkSpd;
+	}
+
+	@Override
+	public void run() {
+		while(target != null){
+			System.out.println("Monster is attacking");
+			Item[] equip = Inventory.equip;
+			for(int i = 0; i < equip.length;i++){
+				
+			}
+			try {
+				Thread.sleep(atkSpd);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public Play getTarget() {
+		return target;
+	}
+
+	public void setTarget(Play target) {
+		this.target = target;
 	}
 }

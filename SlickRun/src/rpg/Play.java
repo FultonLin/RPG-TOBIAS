@@ -84,7 +84,7 @@ public class Play extends BasicGameState{
 		abc.render(gc, g);
 		font.drawString(50, 50, "HP:" + hp, Color.white);
 		g.drawRect(12, 500, 1000, 80);
-		g.drawRect(300, 300, 100, 100);
+		g.drawRect(300, 400, 100, 100);
 		
 	}
 
@@ -151,15 +151,17 @@ public class Play extends BasicGameState{
 		for(int i = 0; i < mob.size(); i++){
 			Monster pl = mob.get(i);
 			if(yuushaX > pl.getxpos() && yuushaX < pl.getxpos()+ pl.getWidth() && yuushaY > pl.getypos() && yuushaY < pl.getypos()+pl.getHeight()){
-				hp -= pl.getdmg();
-				try {
-					Thread.sleep(pl.getAttkSpd());
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+				if(pl.getTarget() == null){
+					pl.setTarget(this);
+					Thread attack = new Thread(pl);
+					attack.start();
 				}
+			}else{
+				pl.setTarget(null);
 			}
 		}
 	}
+	
 
 	private void openChest(float X, float Y) throws SlickException {
 		if(X>-10 && X<10 && Y>-100 && Y<-50){

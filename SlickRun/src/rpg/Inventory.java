@@ -16,7 +16,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class Inventory extends BasicGameState{
 
 	protected static ArrayList<Item> inventory;
-	private Item[] Equip;
+	protected static Item[] equip;
 	private TrueTypeFont font;
 	private TextField abc;
 	
@@ -27,7 +27,7 @@ public class Inventory extends BasicGameState{
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		inventory = new ArrayList<Item>();
-		Equip = new Item[4];
+		setEquip(new Item[4]);
 		Font asd = new Font("Helvetica", Font.BOLD, 36);
 		font = new TrueTypeFont(asd , true);
 		abc = new TextField(gc, gc.getDefaultFont(), 50, 150, 300, 350);
@@ -59,5 +59,13 @@ public class Inventory extends BasicGameState{
 	@Override
 	public int getID() {
 		return 3;
+	}
+
+	public static Item[] getEquip() {
+		return equip;
+	}
+
+	public void setEquip(Item[] equip) {
+		this.equip = equip;
 	}
 }
