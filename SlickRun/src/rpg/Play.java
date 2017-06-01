@@ -79,7 +79,7 @@ public class Play extends BasicGameState{
 		g.drawString("X: "+yuushaX+"\nY: "+yuushaY,600,10);//hero coordinates
 		chestone.draw(yuushaX+175,yuushaY+400);
 		chesttwo.draw(yuushaX+15,yuushaY+900);
-		chestthree.draw(yuushaX+755,yuushaY+1030);
+		chestthree.draw(yuushaX+755,yuushaY+1030); 
 		chestfour.draw(yuushaX+1520,yuushaY+840);
 		abc.render(gc, g);
 		font.drawString(50, 50, "HP:" + hp, Color.white);

@@ -39,7 +39,7 @@ public class Inventory extends BasicGameState{
 		g.drawRect(50, 150, 300, 350);
 		font.drawString(25, 25, "Inventory", Color.green);
 	}
-
+ 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int arg2) throws SlickException {
 		Input input = gc.getInput();

@@ -75,7 +75,7 @@ public class Monster implements MonsterInterface,Runnable{
 			System.out.println("Monster is attacking");
 			Item[] equip = Inventory.equip;
 			for(int i = 0; i < equip.length;i++){
-				
+				 
 			}
 			try {
 				Thread.sleep(atkSpd);
