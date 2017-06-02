@@ -1,8 +1,8 @@
 package rpg;
 
 public interface PlayerInterface {
-	float getYuushaX();
-	float getYuushaY();
+	double getYuushaX();
+	double getYuushaY();
 	int getDmg();
 	int getHp();
 	int getAtkspd();

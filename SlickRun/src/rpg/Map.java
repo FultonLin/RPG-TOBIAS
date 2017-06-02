@@ -30,8 +30,8 @@ public class Map extends BasicGameState {
 	private boolean blocked[][];
 //	private ArrayList<Rectangle> blocks;
 	//CHARACTER
-	private Animation yuusha,moveUp,moveDown,moveLeft,moveRight;
-	private double yuushaX,yuushaY;
+//	private Animation yuusha,moveUp,moveDown,moveLeft,moveRight;
+//	private double yuushaX,yuushaY;
 	//LOADING BAR
 	private Image loading;
 	int time = 0;
@@ -52,36 +52,36 @@ public class Map extends BasicGameState {
 		chest = new Image("resources/chestopen.png");
 		
 		
-		//CHARACTER-animation movement
-		Image yuushasprite1 = new Image("resources/yuushaanimation/yuushaup.png");
-		Image yuushasprite2 = new Image("resources/yuushaanimation/yuushadown.png");
-		Image yuushasprite3 = new Image("resources/yuushaanimation/yuushaleft.png");
-		Image yuushasprite4 = new Image("resources/yuushaanimation/yuusharight.png");
-		
-		moveUp = getAnimation(yuushasprite1,4,1,32,40,3,200);
-		moveDown = getAnimation(yuushasprite2,4,1,32,40,3,200);
-		moveLeft = getAnimation(yuushasprite3,4,1,32,40,3,200);
-		moveRight = getAnimation(yuushasprite4,4,1,32,40,3,200);
-		yuusha = moveDown;
+//		//CHARACTER-animation movement
+//		Image yuushasprite1 = new Image("resources/yuushaanimation/yuushaup.png");
+//		Image yuushasprite2 = new Image("resources/yuushaanimation/yuushadown.png");
+//		Image yuushasprite3 = new Image("resources/yuushaanimation/yuushaleft.png");
+//		Image yuushasprite4 = new Image("resources/yuushaanimation/yuusharight.png");
+//		
+//		moveUp = getAnimation(yuushasprite1,4,1,32,40,3,200);
+//		moveDown = getAnimation(yuushasprite2,4,1,32,40,3,200);
+//		moveLeft = getAnimation(yuushasprite3,4,1,32,40,3,200);
+//		moveRight = getAnimation(yuushasprite4,4,1,32,40,3,200);
+//		yuusha = moveDown;
 		
 		//LOADING BAR
 		loading = new Image("resources/loadingbar.jpg");
 	}
 
-	private Animation getAnimation(Image i,int spriteX,int spriteY,int spriteWidth,int spriteHeight,int frames,int duration) {
-		Animation b = new Animation(false);
-		
-		int c = 0;
-		for(int y = 0;y<spriteY;y++){
-			for(int x = 0;x<spriteX;x++){
-				if(c<frames){
-					b.addFrame(i.getSubImage(x*spriteWidth,y*spriteHeight,spriteWidth,spriteHeight), duration);
-				}	
-				c++;
-			}
-		}
-		return b;
-	}
+//	private Animation getAnimation(Image i,int spriteX,int spriteY,int spriteWidth,int spriteHeight,int frames,int duration) {
+//		Animation b = new Animation(false);
+//		
+//		int c = 0;
+//		for(int y = 0;y<spriteY;y++){
+//			for(int x = 0;x<spriteX;x++){
+//				if(c<frames){
+//					b.addFrame(i.getSubImage(x*spriteWidth,y*spriteHeight,spriteWidth,spriteHeight), duration);
+//				}	
+//				c++;
+//			}
+//		}
+//		return b;
+//	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		//MAP
@@ -147,71 +147,71 @@ public class Map extends BasicGameState {
 //		        isInCollision = true;
 //		    }
 //		}
-		//CHARACTER-keyboard input
-		if(input.isKeyDown(Input.KEY_UP)){
-			if(checkCollision(yuushaX,yuushaY-1) == true){
-				yuusha = moveUp;
-				yuusha.update(a);
-				yuushaY--;
-				y++;
-			}
-//			y += a/4.0f;
-		}
-		if(input.isKeyDown(Input.KEY_DOWN)){
-			if(checkCollision(yuushaX,yuushaY+1) == true){
-				yuusha = moveDown;
-				yuusha.update(a);
-				yuushaY++;
-				y--;
-			}
-//			y -= a/4.0f;
-		}
-		if(input.isKeyDown(Input.KEY_LEFT)){
-			if(checkCollision(yuushaX-1,yuushaY) == true){
-				yuusha = moveLeft;
-				yuusha.update(a);
-				yuushaX--;
-				x++;
-			}
-//			x += a/4.0f;
-		}
-		if(input.isKeyDown(Input.KEY_RIGHT)){
-			if(checkCollision(yuushaX+1,yuushaY) == true){
-				yuusha = moveRight;
-				yuusha.update(a);
-				yuushaX++;
-				x--;
-			}
-//			x -= a/4.0f;
-		}
-		if(input.isKeyDown(Input.KEY_SPACE)){
-			double newX = (int)((x)/32)+24;
-			double newY = (int)((y)/32)+59;
-			if(checkCollision(yuushaX,yuushaY-1) == false){
-				double v = newX;
-				double w = newY-1;
-				System.out.println("Found Tile: "+v+", "+w);
-				objectInteraction(v,w);
-			}
-			if(checkCollision(yuushaX,yuushaY+1) == false){
-				double v = newX;
-				double w = newY+1;
-				System.out.println("Found Tile: "+v+", "+w);
-				objectInteraction(v,w);
-			}
-			if(checkCollision(yuushaX-1,yuushaY) == false){
-				double v = newX-1;
-				double w = newY;
-				System.out.println("Found Tile: "+v+", "+w);
-				objectInteraction(v,w);
-			}
-			if(checkCollision(yuushaX+1,yuushaY) == false){
-				double v = newX+1;
-				double w = newY;
-				System.out.println("Found Tile: "+v+", "+w);
-				objectInteraction(v,w);
-			}
-		}
+//		//CHARACTER-keyboard input
+//		if(input.isKeyDown(Input.KEY_UP)){
+//			if(checkCollision(yuushaX,yuushaY-1) == true){
+//				yuusha = moveUp;
+//				yuusha.update(a);
+//				yuushaY--;
+//				y++;
+//			}
+////			y += a/4.0f;
+//		}
+//		if(input.isKeyDown(Input.KEY_DOWN)){
+//			if(checkCollision(yuushaX,yuushaY+1) == true){
+//				yuusha = moveDown;
+//				yuusha.update(a);
+//				yuushaY++;
+//				y--;
+//			}
+////			y -= a/4.0f;
+//		}
+//		if(input.isKeyDown(Input.KEY_LEFT)){
+//			if(checkCollision(yuushaX-1,yuushaY) == true){
+//				yuusha = moveLeft;
+//				yuusha.update(a);
+//				yuushaX--;
+//				x++;
+//			}
+////			x += a/4.0f;
+//		}
+//		if(input.isKeyDown(Input.KEY_RIGHT)){
+//			if(checkCollision(yuushaX+1,yuushaY) == true){
+//				yuusha = moveRight;
+//				yuusha.update(a);
+//				yuushaX++;
+//				x--;
+//			}
+////			x -= a/4.0f;
+//		}
+//		if(input.isKeyDown(Input.KEY_SPACE)){
+//			double newX = (int)((x)/32)+24;
+//			double newY = (int)((y)/32)+59;
+//			if(checkCollision(yuushaX,yuushaY-1) == false){
+//				double v = newX;
+//				double w = newY-1;
+//				System.out.println("Found Tile: "+v+", "+w);
+//				objectInteraction(v,w);
+//			}
+//			if(checkCollision(yuushaX,yuushaY+1) == false){
+//				double v = newX;
+//				double w = newY+1;
+//				System.out.println("Found Tile: "+v+", "+w);
+//				objectInteraction(v,w);
+//			}
+//			if(checkCollision(yuushaX-1,yuushaY) == false){
+//				double v = newX-1;
+//				double w = newY;
+//				System.out.println("Found Tile: "+v+", "+w);
+//				objectInteraction(v,w);
+//			}
+//			if(checkCollision(yuushaX+1,yuushaY) == false){
+//				double v = newX+1;
+//				double w = newY;
+//				System.out.println("Found Tile: "+v+", "+w);
+//				objectInteraction(v,w);
+//			}
+//		}
 		// MAP-rendering with movement
 		if(x<0){
 			mapX++;
@@ -256,7 +256,6 @@ public class Map extends BasicGameState {
 			object4 = true;
 			System.out.println("Unlocked Run");
 		}
-		
 	}
 
 	public int getID() {

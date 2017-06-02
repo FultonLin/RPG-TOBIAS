@@ -1,8 +1,8 @@
 package rpg;
 
 public class Player implements PlayerInterface,Runnable{
-	private float yuushaX = 0;
-	private float yuushaY = 0;
+	private double yuushaX = 0;
+	private double yuushaY = 0;
 	private int dmg = 10;
 	private int hp = 100;
 	private int atkSpd = 500;
@@ -12,12 +12,12 @@ public class Player implements PlayerInterface,Runnable{
 	}
 	
 	@Override
-	public float getYuushaX() {
+	public double getYuushaX() {
 		return yuushaX;
 	}
 
 	@Override
-	public float getYuushaY() {
+	public double getYuushaY() {
 		return yuushaY;
 	}
 
