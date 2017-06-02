@@ -27,13 +27,13 @@ public class Play extends BasicGameState{
 	
 	public Play(int state) {
 		yuusha = new Player();
+		mob = new ArrayList<Monster>();
+		populateMap();
 	}
 
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		abc = new TextField(gc, gc.getDefaultFont(), 12, 500, 1000, 80);
 		abc.setText("You can walk down");
-		mob = new ArrayList<Monster>();
-		populateMap();
 		Font asd = new Font("Helvetica", Font.BOLD, 24);
 		font = new TrueTypeFont(asd , true);
 	}
