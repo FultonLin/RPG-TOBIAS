@@ -74,8 +74,9 @@ public class Monster implements MonsterInterface,Runnable{
 		while(target != null){
 			System.out.println("Monster is attacking");
 			Item[] equip = Inventory.equip;
+			int totalDef = 0;
 			for(int i = 0; i < equip.length;i++){
-				 
+				totalDef += equip[i].getdef();
 			}
 			try {
 				Thread.sleep(atkSpd);
