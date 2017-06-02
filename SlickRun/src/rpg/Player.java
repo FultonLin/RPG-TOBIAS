@@ -25,7 +25,7 @@ public class Player implements PlayerInterface,Runnable{
 	public int getDmg() {
 		return dmg;
 	}
-
+ 
 	@Override
 	public int getHp() {
 		return hp;
