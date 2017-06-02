@@ -19,8 +19,12 @@ public class Map extends BasicGameState {
 	private TiledMap map;
 	private double x,y;
 	private int mapX = 11,mapY = 49;
+	//OBJECTS
 	private Image chest;
-	private boolean chestopen = false;
+	private boolean object1 = false;
+	private boolean object2 = false;
+	private boolean object3 = false;
+	private boolean object4 = false;
 	private int chestX = 0,chestY = 0;
 	
 	private boolean blocked[][];
@@ -82,7 +86,10 @@ public class Map extends BasicGameState {
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		//MAP
 		map.render((int)x-32,(int)y-32,mapX,mapY,mapX+27,mapY+27);
-		chest.draw(chestX,chestY);
+		if(object1 == true){
+			System.out.println("CHEST IS VISIBLE");
+			chest.draw(chestX,chestY);
+		}
 		//CHARACTER
 		yuusha.draw(385,274);
 		//LOADING BAR-display time
@@ -178,10 +185,31 @@ public class Map extends BasicGameState {
 //			x -= a/4.0f;
 		}
 		if(input.isKeyDown(Input.KEY_SPACE)){
-			if(checkCollision(yuushaX,yuushaY-1)==false || checkCollision(yuushaX,yuushaY+1)==false ||
-					checkCollision(yuushaX-1,yuushaY)==false || checkCollision(yuushaX+1,yuushaY)==false){
-				System.out.println("UNLOCKED");
-				objectInteraction();
+			double newX = (int)((x)/32)+24;
+			double newY = (int)((y)/32)+59;
+			if(checkCollision(yuushaX,yuushaY-1) == false){
+				double v = newX;
+				double w = newY-1;
+				System.out.println("Found Tile: "+v+", "+w);
+				objectInteraction(v,w);
+			}
+			if(checkCollision(yuushaX,yuushaY+1) == false){
+				double v = newX;
+				double w = newY+1;
+				System.out.println("Found Tile: "+v+", "+w);
+				objectInteraction(v,w);
+			}
+			if(checkCollision(yuushaX-1,yuushaY) == false){
+				double v = newX-1;
+				double w = newY;
+				System.out.println("Found Tile: "+v+", "+w);
+				objectInteraction(v,w);
+			}
+			if(checkCollision(yuushaX+1,yuushaY) == false){
+				double v = newX+1;
+				double w = newY;
+				System.out.println("Found Tile: "+v+", "+w);
+				objectInteraction(v,w);
 			}
 		}
 		// MAP-rendering with movement
@@ -205,11 +233,28 @@ public class Map extends BasicGameState {
 		time += a;
 	}
 
-	private void objectInteraction() {
-		if(checkCollision(yuushaX,yuushaY) == false){
-			chestopen = true;
-			chestX = (int) yuushaX;
-			chestY = (int) yuushaY;
+	private void objectInteraction(double a, double b) {
+		if(a == 24.0 && b == 62.0){
+			object1 = true;
+			chestX = (int) a*10;
+			chestY = (int) b*10;
+			System.out.println("Unlocked at: "+a+", "+b);
+		}
+		if(a == 21.0 && b == 77.0){
+			object2 = true;
+			chestX = (int) a;
+			chestY = (int) b;
+			System.out.println("Unlocked at: "+a+", "+b);
+		}
+		if(a == 45.0 && b == 77.0){
+			object3 = true;
+			chestX = (int) x;
+			chestY = (int) y;
+			System.out.println("Unlocked at: "+a+", "+b);
+		}
+		if((a == 38.0 || a == 39.0) && (b == 55.0 || b == 56.0)){
+			object4 = true;
+			System.out.println("Unlocked Run");
 		}
 		
 	}
