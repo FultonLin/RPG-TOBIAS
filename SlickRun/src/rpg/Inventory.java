@@ -19,6 +19,8 @@ public class Inventory extends BasicGameState{
 	protected static Item[] equip;
 	private TrueTypeFont font;
 	private TextField abc;
+	private TextField abcd;
+	private TextField abcde;
 	
 	public Inventory(int inventory) {
 		// TODO Auto-generated constructor stub
@@ -30,18 +32,18 @@ public class Inventory extends BasicGameState{
 		setEquip(new Item[4]);
 		Font asd = new Font("Helvetica", Font.BOLD, 36);
 		font = new TrueTypeFont(asd , true);
-		abc = new TextField(gc, gc.getDefaultFont(), 50, 150, 300, 350);
+		abc = new TextField(gc, gc.getDefaultFont(), 50, 150, 300, 300);
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		abc.render(gc, g);
 		g.drawRect(50, 150, 300, 350);
-		font.drawString(25, 25, "Inventory", Color.green);
+		font.drawString(25, 25, "Inventory", Color.white);
 	}
  
 	@Override
-	public void update(GameContainer gc, StateBasedGame sbg, int arg2) throws SlickException {
+	public void update(GameContainer gc, StateBasedGame sbg, int a) throws SlickException {
 		Input input = gc.getInput();
 		if(input.isKeyDown(Input.KEY_I)){
 			try {

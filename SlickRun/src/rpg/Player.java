@@ -1,6 +1,6 @@
 package rpg;
 
-public class Player implements PlayerInterface{
+public class Player implements PlayerInterface,Runnable{
 	private float yuushaX = 0;
 	private float yuushaY = 0;
 	private int dmg = 10;
@@ -34,6 +34,11 @@ public class Player implements PlayerInterface{
 	@Override
 	public int getAtkspd() {
 		return atkSpd;
+	}
+
+	@Override
+	public void run() {
+		
 	}
 
 }
