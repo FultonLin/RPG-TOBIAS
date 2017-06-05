@@ -16,12 +16,12 @@ import org.newdawn.slick.tiled.TiledMap;
 public class Map{
 	
 	//MAP
-	private TiledMap map;
+//	private TiledMap map;
 	private double x,y;
 	private int mapX = 11,mapY = 49;
 	//OBJECTS
-	private boolean blocked[][];
-	private ArrayList<Rectangle> blocks;
+//	private boolean blocked[][];
+//	private ArrayList<Rectangle> blocks;
 //	private Image chest;
 //	private boolean object1 = false;
 //	private boolean object2 = false;
@@ -99,45 +99,45 @@ public class Map{
 //		}	
 //	}
 	
-	public void collisionRect() {
-		blocked = new boolean[map.getWidth()][map.getHeight()];
-		System.out.println("Dimensions: "+map.getWidth()+", "+map.getHeight());
-		int objectlayer = map.getLayerIndex("ObjectLayer");
-//		int firstlayer = map.getLayerIndex("FirstLayer");
-		for(int x = 0; x < map.getWidth(); x++) {
-		    for(int y = 0; y < map.getHeight(); y++) {
-		        int tileID = map.getTileId(x, y, objectlayer);
-//		        int tileID2 = map.getTileId(x, y, firstlayer);
-//		        String value = map.getTileProperty(tileID, "blocked", "false");
-//		        if(value.equals("true")) {
-//		            blocked[x][y] = true;
-//		            blocks.add(new Rectangle((float)x*32,(float)y*32,32,32));
+//	public void collisionRect() {
+//		blocked = new boolean[map.getWidth()][map.getHeight()];
+//		System.out.println("Dimensions: "+map.getWidth()+", "+map.getHeight());
+//		int objectlayer = map.getLayerIndex("ObjectLayer");
+////		int firstlayer = map.getLayerIndex("FirstLayer");
+//		for(int x = 0; x < map.getWidth(); x++) {
+//		    for(int y = 0; y < map.getHeight(); y++) {
+//		        int tileID = map.getTileId(x, y, objectlayer);
+////		        int tileID2 = map.getTileId(x, y, firstlayer);
+////		        String value = map.getTileProperty(tileID, "blocked", "false");
+////		        if(value.equals("true")) {
+////		            blocked[x][y] = true;
+////		            blocks.add(new Rectangle((float)x*32,(float)y*32,32,32));
+////		        }
+//		        if(tileID != 0){
+////		        if(tileID != 0 || tileID2 != 0){
+//		        	System.out.println("Object found at  "+x+", "+y);
+//		        	if(blocked[x][y] != true){
+//		        		blocked[x][y] = true;
+//		        	}
 //		        }
-		        if(tileID != 0){
-//		        if(tileID != 0 || tileID2 != 0){
-		        	System.out.println("Object found at  "+x+", "+y);
-		        	if(blocked[x][y] != true){
-		        		blocked[x][y] = true;
-		        	}
-		        }
-		    }
-		}
-	}
+//		    }
+//		}
+//	}
 	
-	public boolean checkCollision(double x, double y) {
-		System.out.println("x is "+x);
-		x = (int)((x)/32)+24;
-		y = (int)((y)/32)+59;
-		System.out.println("Checking for Collision at "+x+", "+y);
-		for(int i = 0; i < blocked.length; i++) {
-			for(int j = 0; j < blocked[i].length; j++) {
-				if(blocked[i][j] == true && i == x && j ==y) {
-					return false;
-				}
-			}
-		}
-		return true;
-	}
+//	public boolean checkCollision(double x, double y) {
+//		System.out.println("x is "+x);
+//		x = (int)((x)/32)+24;
+//		y = (int)((y)/32)+59;
+//		System.out.println("Checking for Collision at "+x+", "+y);
+//		for(int i = 0; i < blocked.length; i++) {
+//			for(int j = 0; j < blocked[i].length; j++) {
+//				if(blocked[i][j] == true && i == x && j ==y) {
+//					return false;
+//				}
+//			}
+//		}
+//		return true;
+//	}
 	
 //	public void update(GameContainer gc, StateBasedGame sbg, int a) throws SlickException {
 //		map.getTileId(0,0,layer);	
@@ -263,9 +263,9 @@ public class Map{
 //		return 0;
 //	}
 	
-	public TiledMap getMap(){
-		return this.map;
-	}
+//	public TiledMap getMap(){
+//		return this.map;
+//	}
 	public double getX(){
 		return x;
 	}
