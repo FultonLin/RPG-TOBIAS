@@ -156,7 +156,7 @@ public class Play extends BasicGameState{
 		if (time<duration) {
 			loading.draw(0,0,1.5f);
 		}
-	}
+	} 
 
 	public void update(GameContainer gc, StateBasedGame sbg, int a) throws SlickException {		
 		//CHARACTER-keyboard input
