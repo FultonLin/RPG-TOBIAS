@@ -133,10 +133,10 @@ public class Play extends BasicGameState{
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-		g.drawString("X: " + yuusha2.getYuushaX() + "\nY: " + yuusha2.getYuushaY(), 600, 10);//hero coordinates
-		abc.render(gc, g);
-		g.drawRect(12, 500, 1000, 80);
-		font.drawString(10, 10, "HP:" + yuusha2.getHp(), Color.white);
+//		g.drawString("X: " + yuusha2.getYuushaX() + "\nY: " + yuusha2.getYuushaY(), 600, 10);//hero coordinates
+//		abc.render(gc, g);
+//		g.drawRect(12, 500, 1000, 80);
+//		font.drawString(10, 10, "HP:" + yuusha2.getHp(), Color.white);
 		//MAP
 //		map.render((int)x-32,(int)y-32,mapX,mapY,mapX+27,mapY+27);
 		tiledmap.render((int)map.getX()-32,
@@ -152,6 +152,13 @@ public class Play extends BasicGameState{
 //		}
 		//CHARACTER
 		yuusha.draw(385,274);
+		
+		//OTHER
+		g.drawString("X: " + yuusha2.getYuushaX() + "\nY: " + yuusha2.getYuushaY(), 600, 10);//hero coordinates
+		abc.render(gc, g);
+		g.drawRect(12, 500, 1000, 80);
+		font.drawString(10, 10, "HP:" + yuusha2.getHp(), Color.white);
+		
 		//LOADING BAR-display time
 		if (time<duration) {
 			loading.draw(0,0,1.5f);
