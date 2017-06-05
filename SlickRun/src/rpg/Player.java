@@ -41,4 +41,14 @@ public class Player implements PlayerInterface,Runnable{
 		
 	}
 
+	@Override
+	public void setYuushaX(double yuushaX) {
+		this.yuushaX = yuushaX;
+	}
+
+	@Override
+	public void setYuushaY(double yuushaY) {
+		this.yuushaY = yuushaY;
+	}
+
 }
