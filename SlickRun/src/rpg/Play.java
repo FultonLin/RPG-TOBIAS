@@ -81,19 +81,23 @@ public class Play extends BasicGameState{
 		blocked = new boolean[tiledmap.getWidth()][tiledmap.getHeight()];
 		System.out.println("Dimensions: "+tiledmap.getWidth()+", "+tiledmap.getHeight());
 		int objectlayer = tiledmap.getLayerIndex("ObjectLayer");
-//		int firstlayer = map.getLayerIndex("FirstLayer");
+		int firstlayer = tiledmap.getLayerIndex("FirstLayer");
+		int secondlayer = tiledmap.getLayerIndex("SecondLayer");
+		int walllayer = tiledmap.getLayerIndex("WallLayer");
 		for(int x = 0; x < tiledmap.getWidth(); x++) {
 		    for(int y = 0; y < tiledmap.getHeight(); y++) {
-		        int tileID = tiledmap.getTileId(x, y, objectlayer);
-//		        int tileID2 = map.getTileId(x, y, firstlayer);
+		        int objecttileID = tiledmap.getTileId(x, y, objectlayer);
+		        int firsttileID = tiledmap.getTileId(x, y, firstlayer);
+		        int secondtileID = tiledmap.getTileId(x, y, secondlayer);
+		        int walltileID = tiledmap.getTileId(x, y, walllayer);
 //		        String value = map.getTileProperty(tileID, "blocked", "false");
 //		        if(value.equals("true")) {
 //		            blocked[x][y] = true;
 //		            blocks.add(new Rectangle((float)x*32,(float)y*32,32,32));
 //		        }
-		        if(tileID != 0){
-//		        if(tileID != 0 || tileID2 != 0){
-		        	System.out.println("Object found at  "+x+", "+y);
+//		        if(tileID != 0){
+		        if(objecttileID != 0 || firsttileID != 0 || secondtileID != 0 || walltileID != 0){
+		        	System.out.println("Tile found at  "+x+", "+y);
 		        	if(blocked[x][y] != true){
 		        		blocked[x][y] = true;
 		        	}
@@ -104,8 +108,13 @@ public class Play extends BasicGameState{
 	
 	public boolean checkCollision(double x, double y) {
 		System.out.println("x is "+x);
-		x = (int)((x)/32)+24;
-		y = (int)((y)/32)+59;
+//		if(x > 1600){
+//			x -= 25;
+//			x = (int)((x)/32)+24;
+//		}else{
+			x = (int)((x/32))+24;
+//		}
+		y = (int)((y/32))+59;
 		System.out.println("Checking for Collision at "+x+", "+y);
 		for(int i = 0; i < blocked.length; i++) {
 			for(int j = 0; j < blocked[i].length; j++) {
