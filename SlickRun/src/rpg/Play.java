@@ -36,7 +36,7 @@ public class Play extends BasicGameState{
 	int duration = 2000;
 	//OBJECT
 	private boolean blocked[][];
-	private Image chest;
+	private Image chest1,chest2,chest3,open;
 	
 	Input input;
 	
@@ -59,7 +59,10 @@ public class Play extends BasicGameState{
 		map.setY(0);
 		
 		//OBJECT
-		chest = new Image("resources/chestopen.png");
+		open = new Image("resources/chestopen.png");
+		chest1 = new Image("resources/chestopen.png");
+		chest2 = new Image("resources/chestopen.png");
+		chest3 = new Image("resources/chestopen.png");
 		
 		//CHARACTER-animation movement
 		Image yuushasprite1 = new Image("resources/yuushaanimation/yuushaup.png");
@@ -221,31 +224,31 @@ public class Play extends BasicGameState{
 //			x -= a/4.0f;
 		}
 		if(input.isKeyDown(Input.KEY_SPACE)){
-			double newX = (int)(map.getX()/32)+24;
-			double newY = (int)(map.getY()/32)+59;
+			double newX = (int)(yuusha2.getYuushaX()/32)+24;
+			double newY = (int)(yuusha2.getYuushaY()/32)+59;
 			if(checkCollision(yuusha2.getYuushaX(),yuusha2.getYuushaY()-1) == false){
 				double v = newX;
 				double w = newY-1;
-				System.out.println("Found Tile: "+v+", "+w);
-				object.objectInteraction(v,w);
+				System.out.println("Found Interaction: "+v+", "+w);
+//				object.objectInteraction(v,w);
 			}
 			if(checkCollision(yuusha2.getYuushaX(),yuusha2.getYuushaY()+1) == false){
 				double v = newX;
 				double w = newY+1;
-				System.out.println("Found Tile: "+v+", "+w);
-				object.objectInteraction(v,w);
+				System.out.println("Found Interaction: "+v+", "+w);
+//				object.objectInteraction(v,w);
 			}
 			if(checkCollision(yuusha2.getYuushaX()-1,yuusha2.getYuushaY()) == false){
 				double v = newX-1;
 				double w = newY;
-				System.out.println("Found Tile: "+v+", "+w);
-				object.objectInteraction(v,w);
+				System.out.println("Found Interaction: "+v+", "+w);
+//				object.objectInteraction(v,w);
 			}
 			if(checkCollision(yuusha2.getYuushaX()+1,yuusha2.getYuushaY()) == false){
 				double v = newX+1;
 				double w = newY;
-				System.out.println("Found Tile: "+v+", "+w);
-				object.objectInteraction(v,w);
+				System.out.println("Found Interaction: "+v+", "+w);
+//				object.objectInteraction(v,w);
 			}
 		}
 		if(input.isKeyDown(Input.KEY_ESCAPE)){
