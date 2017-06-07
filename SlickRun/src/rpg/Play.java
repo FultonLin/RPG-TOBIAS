@@ -166,7 +166,7 @@ public class Play extends BasicGameState{
 		yuusha.draw(385,274);
 		for(int i = 0; i < mob.size(); i++){
 			g.drawRect(mob.get(i).getxpos(), mob.get(i).getypos(), mob.get(i).getWidth(), mob.get(i).getHeight());
-		}
+		} 
 		
 		//OTHER
 		g.drawString("X: " + yuusha2.getYuushaX() + "\nY: " + yuusha2.getYuushaY(), 600, 10);//hero coordinates
@@ -274,9 +274,14 @@ public class Play extends BasicGameState{
 					pl.setTarget(yuusha2);
 					Thread attack = new Thread(pl);
 					attack.start();
+				}else if(yuusha2.getTarget() == null){
+					yuusha2.setTarget(pl);
+					Thread attack = new Thread(pl);
+					attack.start();
 				}
 			}else{
 				pl.setTarget(null);
+				yuusha2.setTarget(null);
 			}
 		}
 		// MAP-rendering with movement

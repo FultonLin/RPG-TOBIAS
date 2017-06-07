@@ -7,6 +7,7 @@ public class Player implements PlayerInterface,Runnable{
 	private int dmg = 10;
 	private int hp = 100;
 	private int atkSpd = 500;
+	private Monster target;
 
 	
 	public Player(){
@@ -39,7 +40,9 @@ public class Player implements PlayerInterface,Runnable{
 
 	@Override
 	public void run() {
-		
+		while(target != null){
+			
+		}
 	}
 
 	@Override
@@ -55,5 +58,13 @@ public class Player implements PlayerInterface,Runnable{
 	@Override
 	public void decHp(int dmg) {
 		hp -= dmg;
+	}
+	
+	public Monster getTarget() {
+		return target;
+	}
+
+	public void setTarget(Monster target) {
+		this.target = target;
 	}
 }
