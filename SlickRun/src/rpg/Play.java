@@ -37,7 +37,7 @@ public class Play extends BasicGameState{
 	//OBJECT
 	private boolean blocked[][];
 	private Image chest1,chest2,chest3,open;
-	
+	 
 	Input input;
 	
 	public Play(int state) {
@@ -268,7 +268,7 @@ public class Play extends BasicGameState{
 			if(yuusha2.getYuushaX() > pl.getxpos() && yuusha2.getYuushaX() < pl.getxpos()+ pl.getWidth() 
 			&& yuusha2.getYuushaY() > pl.getypos() && yuusha2.getYuushaY() < pl.getypos()+ pl.getHeight()){
 				if(pl.getTarget() == null){
-					pl.setTarget(this);
+					pl.setTarget(yuusha2);
 					Thread attack = new Thread(pl);
 					attack.start();
 				}
