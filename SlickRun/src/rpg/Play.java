@@ -306,7 +306,7 @@ public class Play extends BasicGameState{
 	}
 	
 	private void populateMap() {
-		mob.add(new Monster("Chest", 10, 1, 2, 500, -300, -400, 100, 100));//example to create mob
+		mob.add(new Monster("Chest", 10, 1, 2, 500, 200, 200, 100, 100));//example to create mob
 	}
 
 	public int getID() {
