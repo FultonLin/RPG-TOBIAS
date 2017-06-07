@@ -8,4 +8,6 @@ public interface PlayerInterface {
 	int getDmg();
 	int getHp();
 	int getAtkspd();
+	void decHp(int dmg); 
 }
+ 
