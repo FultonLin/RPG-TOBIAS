@@ -39,5 +39,11 @@ public class Object {
 	public int getChestY(){
 		return chestY;
 	}
+	public boolean getObjectState(){
+		return object1;
+	}
+	public void setObjectState(boolean object){
+		object = object1;
+	}
 	
 }

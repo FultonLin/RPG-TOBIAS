@@ -60,9 +60,9 @@ public class Play extends BasicGameState{
 		
 		//OBJECT
 		open = new Image("resources/chestopen.png");
-		chest1 = new Image("resources/chestopen.png");
-		chest2 = new Image("resources/chestopen.png");
-		chest3 = new Image("resources/chestopen.png");
+		chest1 = new Image("resources/chestclose.png");
+		chest2 = new Image("resources/chestclose.png");
+		chest3 = new Image("resources/chestclose.png");
 		
 		//CHARACTER-animation movement
 		Image yuushasprite1 = new Image("resources/yuushaanimation/yuushaup.png");
@@ -162,6 +162,9 @@ public class Play extends BasicGameState{
 //			System.out.println("CHEST IS VISIBLE");
 //			chest.draw(object.getChestX(),object.getChestY());
 //		}
+		chest1.draw(50,50);
+		chest2.draw(50,100);
+		chest3.draw(50,150);
 		//CHARACTER
 		yuusha.draw(385,274);
 		for(int i = 0; i < mob.size(); i++){
@@ -205,13 +208,15 @@ public class Play extends BasicGameState{
 //			y -= a/4.0f;
 		}
 		if(input.isKeyDown(Input.KEY_LEFT)){
-			if(checkCollision(yuusha2.getYuushaX()-1,yuusha2.getYuushaY()) == true){
+			if(checkCollision(yuusha2.getYuushaX()-1,yuusha2.getYuushaY()) == true && object.getObjectState() == true){
 				yuusha = moveLeft;
 				yuusha.update(a);
 //				yuushaX--;
 //				x++;
 				yuusha2.setYuushaX(yuusha2.getYuushaX()-1);
 				map.setX(map.getX()+1);
+			}else{
+				System.out.println("NO");
 			}
 //			x += a/4.0f;
 		}
@@ -233,25 +238,25 @@ public class Play extends BasicGameState{
 				double v = newX;
 				double w = newY-1;
 				System.out.println("Found Interaction: "+v+", "+w);
-//				object.objectInteraction(v,w);
+				objectInteraction(v,w);
 			}
 			if(checkCollision(yuusha2.getYuushaX(),yuusha2.getYuushaY()+1) == false){
 				double v = newX;
 				double w = newY+1;
 				System.out.println("Found Interaction: "+v+", "+w);
-//				object.objectInteraction(v,w);
+				objectInteraction(v,w);
 			}
 			if(checkCollision(yuusha2.getYuushaX()-1,yuusha2.getYuushaY()) == false){
 				double v = newX-1;
 				double w = newY;
 				System.out.println("Found Interaction: "+v+", "+w);
-//				object.objectInteraction(v,w);
+				objectInteraction(v,w);
 			}
 			if(checkCollision(yuusha2.getYuushaX()+1,yuusha2.getYuushaY()) == false){
 				double v = newX+1;
 				double w = newY;
 				System.out.println("Found Interaction: "+v+", "+w);
-//				object.objectInteraction(v,w);
+				objectInteraction(v,w);
 			}
 		}
 		if(input.isKeyDown(Input.KEY_ESCAPE)){
@@ -311,6 +316,28 @@ public class Play extends BasicGameState{
 		}
 		//LOADING BAR
 		time += a;
+	}
+	
+	public void objectInteraction(double a, double b) {
+		if(a == 24.0 && b == 62.0){
+			object.setObjectState(true);
+			chest1 = open;
+			System.out.println("Unlocked at: "+a+", "+b);
+		}
+		if(a == 21.0 && b == 77.0){
+//			object2 = true;
+			chest2 = open;
+			System.out.println("Unlocked at: "+a+", "+b);
+		}
+		if(a == 45.0 && b == 77.0){
+//			object3 = true;
+			chest3 = open;
+			System.out.println("Unlocked at: "+a+", "+b);
+		}
+		if((a == 38.0 || a == 39.0) && (b == 55.0 || b == 56.0)){
+//			object4 = true;
+			System.out.println("Unlocked Run");
+		}
 	}
 	
 	private void populateMap() {
