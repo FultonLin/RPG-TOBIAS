@@ -1,6 +1,7 @@
 package rpg;
 
 public class Player implements PlayerInterface,Runnable{
+	
 	private double yuushaX = 0;
 	private double yuushaY = 0;
 	private int dmg = 10;
@@ -13,7 +14,7 @@ public class Player implements PlayerInterface,Runnable{
 	
 	@Override
 	public double getYuushaX() {
-		return yuushaX;
+		return yuushaX;  
 	}
 
 	@Override
@@ -50,5 +51,9 @@ public class Player implements PlayerInterface,Runnable{
 	public void setYuushaY(double yuushaY) {
 		this.yuushaY = yuushaY;
 	}
-
+	
+	@Override
+	public void decHp(int dmg) {
+		hp -= dmg;
+	}
 }
