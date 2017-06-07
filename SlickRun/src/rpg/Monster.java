@@ -73,6 +73,10 @@ public class Monster implements MonsterInterface,Runnable{
 	public int getAttkSpd() {
 		return atkSpd;
 	}
+	
+	public String getName(){
+		return name;
+	}
 
 	@Override
 	public void run() {

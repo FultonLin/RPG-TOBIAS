@@ -1,5 +1,7 @@
 package rpg;
 
+import org.newdawn.slick.Input;
+
 public class Player implements PlayerInterface,Runnable{
 	
 	private double yuushaX = 0;
@@ -8,6 +10,7 @@ public class Player implements PlayerInterface,Runnable{
 	private int hp = 100;
 	private int atkSpd = 500;
 	private Monster target;
+	Input input;
 
 	
 	public Player(){
@@ -40,9 +43,17 @@ public class Player implements PlayerInterface,Runnable{
 
 	@Override
 	public void run() {
-		while(target != null){
-			
-		}
+//		while(target != null){
+//			if(input.isKeyPressed(Input.KEY_A)){
+//				System.out.println("You are attacking the monster"+target.getName());
+//				target.decreaseHp(dmg);
+//			}
+//			try {
+//				Thread.sleep(atkSpd);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//		}
 	}
 
 	@Override
