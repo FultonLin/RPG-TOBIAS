@@ -1,8 +1,12 @@
 package rpg;
 
+import java.util.ArrayList;
+
+import org.newdawn.slick.Image;
+
 public class Monster implements MonsterInterface,Runnable{
 	
-	private Play target;
+	private Player target;
 	private String name;
 	private int hp;
 	private int dmg;
@@ -12,6 +16,7 @@ public class Monster implements MonsterInterface,Runnable{
 	private int width;
 	private int height;
 	private int atkSpd;
+	private Image monster;
 	
 	
 	public Monster (String name, int hp, int dmg, int spd, int atkSpd, int xpos, int ypos, int height, int width){
@@ -72,26 +77,31 @@ public class Monster implements MonsterInterface,Runnable{
 	@Override
 	public void run() {
 		while(target != null){
-			System.out.println("Monster is attacking");
-			Item[] equip = Inventory.equip;
+			System.out.println("Monster   is attacking");
+			int equipped = Inventory.equip.size();
 			int totalDef = 0;
-			for(int i = 0; i < equip.length;i++){
-				totalDef += equip[i].getdef();
+			System.out.println(equipped);
+			for(int i = 0; i < equipped;i++){
+				totalDef += Inventory.equip.get(i).getdef();
+			}
+			if(dmg-totalDef <= 0){
+				target.decHp(1);
+			}else{
+				target.decHp(dmg-totalDef);
 			}
 			try {
 				Thread.sleep(atkSpd);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
 
-	public Play getTarget() {
+	public Player getTarget() {
 		return target;
 	}
 
-	public void setTarget(Play target) {
+	public void setTarget(Player target) {
 		this.target = target;
 	}
 }
