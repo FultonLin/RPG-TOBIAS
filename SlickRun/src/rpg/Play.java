@@ -24,7 +24,6 @@ public class Play extends BasicGameState{
 	Object object;
 	boolean quit = false;
 	private TextField abc;
-	private ArrayList<Monster> mob;
 	private TrueTypeFont font;
 	//MAP
 	private TiledMap tiledmap;//this will not work
@@ -42,7 +41,6 @@ public class Play extends BasicGameState{
 	
 	public Play(int state) {
 		yuusha2 = new Player();
-		mob = new ArrayList<Monster>();
 		populateMap();
 		map = new Map();
 	}
@@ -167,9 +165,6 @@ public class Play extends BasicGameState{
 		chest3.draw(50,150);
 		//CHARACTER
 		yuusha.draw(385,274);
-		for(int i = 0; i < mob.size(); i++){
-			g.drawRect(mob.get(i).getxpos(), mob.get(i).getypos(), mob.get(i).getWidth(), mob.get(i).getHeight());
-		} 
 		
 		//OTHER
 		g.drawString("X: " + yuusha2.getYuushaX() + "\nY: " + yuusha2.getYuushaY(), 600, 10);//hero coordinates
@@ -271,24 +266,25 @@ public class Play extends BasicGameState{
 			sbg.enterState(3);
 		}
 		
-		for(int i = 0; i < mob.size(); i++){
-			Monster pl = mob.get(i);
-			if(yuusha2.getYuushaX() > pl.getxpos() && yuusha2.getYuushaX() < pl.getxpos()+ pl.getWidth() 
-			&& yuusha2.getYuushaY() > pl.getypos() && yuusha2.getYuushaY() < pl.getypos()+ pl.getHeight()){
-				if(pl.getTarget() == null){
-					pl.setTarget(yuusha2);
-					Thread attack = new Thread(pl);
-					attack.start();
-				}else if(yuusha2.getTarget() == null){
-					yuusha2.setTarget(pl);
-					Thread attack = new Thread(pl);
-					attack.start();
-				}
-			}else{
-				pl.setTarget(null);
-				yuusha2.setTarget(null);
-			}
-		}
+//		May be Useless
+//		for(int i = 0; i < mob.size(); i++){
+//			Monster pl = mob.get(i);
+//			if(yuusha2.getYuushaX() > pl.getxpos() && yuusha2.getYuushaX() < pl.getxpos()+ pl.getWidth() 
+//			&& yuusha2.getYuushaY() > pl.getypos() && yuusha2.getYuushaY() < pl.getypos()+ pl.getHeight()){
+//				if(pl.getTarget() == null){
+//					pl.setTarget(yuusha2);
+//					Thread attack = new Thread(pl);
+//					attack.start();
+//				}else if(yuusha2.getTarget() == null){
+//					yuusha2.setTarget(pl);
+//					Thread attack = new Thread(pl);
+//					attack.start();
+//				}
+//			}else{
+//				pl.setTarget(null);
+//				yuusha2.setTarget(null);
+//			}
+//		}
 		// MAP-rendering with movement
 		if(map.getX()<0){
 //			mapX++;
@@ -341,7 +337,7 @@ public class Play extends BasicGameState{
 	}
 	
 	private void populateMap() {
-		mob.add(new Monster("Chest", 10, 1, 2, 500, 200, 200, 100, 100));//example to create mob
+//		mob.add(new Monster("Chest", 10, 1, 2, 500, 200, 200, 100, 100));//example to create mob
 	}
 
 	public int getID() {

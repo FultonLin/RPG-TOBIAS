@@ -81,7 +81,7 @@ public class Monster implements MonsterInterface,Runnable{
 	@Override
 	public void run() {
 		while(target != null){
-			System.out.println("Monster   is attacking");
+			System.out.println("Monster is attacking");
 			int equipped = Inventory.equip.size();
 			int totalDef = 0;
 			System.out.println(equipped);

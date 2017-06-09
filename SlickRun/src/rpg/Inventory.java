@@ -15,21 +15,22 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Inventory extends BasicGameState{
 
-	protected static ArrayList<Item> inventory;
+	protected static ArrayList<Item> inven;
 	protected static ArrayList<Item> equip;
+	private ArrayList<TextField> fields;
 	private TrueTypeFont font;
 	private TextField abc;
 	private TextField abcd;
 	private TextField abcde;
 	
 	public Inventory(int inventory) {
-		// TODO Auto-generated constructor stub
+		fields = new ArrayList<TextField>();
+		inven = new ArrayList<Item>();
+		equip = new ArrayList<Item>();
 	}
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-		inventory = new ArrayList<Item>();
-		equip = new ArrayList<Item>();
 		Font asd = new Font("Helvetica", Font.BOLD, 36);
 		font = new TrueTypeFont(asd , true);
 		abc = new TextField(gc, gc.getDefaultFont(), 50, 150, 300, 300);
@@ -45,16 +46,11 @@ public class Inventory extends BasicGameState{
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int a) throws SlickException {
 		Input input = gc.getInput();
-		if(input.isKeyDown(Input.KEY_I)){
-			try {
-				Thread.sleep(50);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+		if(input.isKeyDown(Input.KEY_ESCAPE)){
 			sbg.enterState(1);
 		}
-		for(int i = 0; i < inventory.size(); i++){
-			abc.setText(inventory.get(i).getName());
+		for(int i = 0; i < inven.size(); i++){
+			abc.setText(inven.get(i).getName());
 		}
 	}
 
@@ -75,5 +71,9 @@ public class Inventory extends BasicGameState{
 				Inventory.equip.add(equip);
 			}
 		}
+	}
+	
+	public void addItem(Item equipment){
+		inven.add(equipment);
 	}
 }

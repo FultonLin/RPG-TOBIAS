@@ -8,7 +8,7 @@ public class Player implements PlayerInterface,Runnable{
 	private double yuushaY = 0;
 	private int dmg = 10;
 	private int hp = 100;
-	private int atkSpd = 500;
+	private int spd = 20;
 	private Monster target;
 	Input input;
 
@@ -37,8 +37,8 @@ public class Player implements PlayerInterface,Runnable{
 	}
 
 	@Override
-	public int getAtkspd() {
-		return atkSpd;
+	public int getspd() {
+		return spd;
 	}
 
 	@Override
