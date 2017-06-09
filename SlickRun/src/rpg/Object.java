@@ -43,7 +43,7 @@ public class Object {
 		return object1;
 	}
 	public void setObjectState(boolean object){
-		object = object1;
+		object1 = object;
 	}
 	
 }

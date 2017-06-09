@@ -98,7 +98,7 @@ public class Play extends BasicGameState{
 //		        }
 //		        if(tileID != 0){
 		        if(objecttileID != 0 || firsttileID != 0 || secondtileID != 0 || walltileID != 0){
-		        	System.out.println("Tile found at  "+x+", "+y);
+		        	System.out.println("Collision found at  "+x+", "+y);
 		        	if(blocked[x][y] != true){
 		        		blocked[x][y] = true;
 		        	}
@@ -203,7 +203,7 @@ public class Play extends BasicGameState{
 //			y -= a/4.0f;
 		}
 		if(input.isKeyDown(Input.KEY_LEFT)){
-			if(checkCollision(yuusha2.getYuushaX()-1,yuusha2.getYuushaY()) == true && object.getObjectState() == true){
+			if(checkCollision(yuusha2.getYuushaX()-1,yuusha2.getYuushaY()) == true){
 				yuusha = moveLeft;
 				yuusha.update(a);
 //				yuushaX--;
