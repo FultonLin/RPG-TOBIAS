@@ -21,7 +21,7 @@ public class Play extends BasicGameState{
 	
 	Player yuusha2;
 	Map map;
-	Object object;
+	ObjectClass object; //causing null problems so not using anymore
 	boolean quit = false;
 	private TextField abc;
 	private TrueTypeFont font;
@@ -36,6 +36,10 @@ public class Play extends BasicGameState{
 	//OBJECT
 	private boolean blocked[][];
 	private Image chest1,chest2,chest3,open;
+	private boolean object1 = false;
+	private boolean object2 = false;
+	private boolean object3 = false;
+	private boolean object4 = false;
 	 
 	Input input;
 	
@@ -160,7 +164,9 @@ public class Play extends BasicGameState{
 //			System.out.println("CHEST IS VISIBLE");
 //			chest.draw(object.getChestX(),object.getChestY());
 //		}
-		chest1.draw(50,50);
+		if(object1 == true){
+			chest1.draw(50,50);			
+		}
 		chest2.draw(50,100);
 		chest3.draw(50,150);
 		//CHARACTER
@@ -181,7 +187,7 @@ public class Play extends BasicGameState{
 	public void update(GameContainer gc, StateBasedGame sbg, int a) throws SlickException {		
 		//CHARACTER-keyboard input
 		if(input.isKeyDown(Input.KEY_UP)){
-			if(checkCollision(yuusha2.getYuushaX(),yuusha2.getYuushaY()-1) == true){
+			if(checkCollision(yuusha2.getYuushaX(),yuusha2.getYuushaY()-1) == true && object3 == true){
 				yuusha = moveUp;
 				yuusha.update(a);
 //				yuushaY--;
@@ -203,7 +209,7 @@ public class Play extends BasicGameState{
 //			y -= a/4.0f;
 		}
 		if(input.isKeyDown(Input.KEY_LEFT)){
-			if(checkCollision(yuusha2.getYuushaX()-1,yuusha2.getYuushaY()) == true){
+			if(checkCollision(yuusha2.getYuushaX()-1,yuusha2.getYuushaY()) == true && object1 == true){
 				yuusha = moveLeft;
 				yuusha.update(a);
 //				yuushaX--;
@@ -216,7 +222,7 @@ public class Play extends BasicGameState{
 //			x += a/4.0f;
 		}
 		if(input.isKeyDown(Input.KEY_RIGHT)){
-			if(checkCollision(yuusha2.getYuushaX()+1,yuusha2.getYuushaY()) == true){
+			if(checkCollision(yuusha2.getYuushaX()+1,yuusha2.getYuushaY()) == true && object2 == true){
 				yuusha = moveRight;
 				yuusha.update(a);
 //				yuushaX++;
@@ -227,32 +233,7 @@ public class Play extends BasicGameState{
 //			x -= a/4.0f;
 		}
 		if(input.isKeyDown(Input.KEY_SPACE)){
-			double newX = (int)(yuusha2.getYuushaX()/32)+24;
-			double newY = (int)(yuusha2.getYuushaY()/32)+59;
-			if(checkCollision(yuusha2.getYuushaX(),yuusha2.getYuushaY()-1) == false){
-				double v = newX;
-				double w = newY-1;
-				System.out.println("Found Interaction: "+v+", "+w);
-				objectInteraction(v,w);
-			}
-			if(checkCollision(yuusha2.getYuushaX(),yuusha2.getYuushaY()+1) == false){
-				double v = newX;
-				double w = newY+1;
-				System.out.println("Found Interaction: "+v+", "+w);
-				objectInteraction(v,w);
-			}
-			if(checkCollision(yuusha2.getYuushaX()-1,yuusha2.getYuushaY()) == false){
-				double v = newX-1;
-				double w = newY;
-				System.out.println("Found Interaction: "+v+", "+w);
-				objectInteraction(v,w);
-			}
-			if(checkCollision(yuusha2.getYuushaX()+1,yuusha2.getYuushaY()) == false){
-				double v = newX+1;
-				double w = newY;
-				System.out.println("Found Interaction: "+v+", "+w);
-				objectInteraction(v,w);
-			}
+			findingInteraction();
 		}
 		if(input.isKeyDown(Input.KEY_ESCAPE)){
 			sbg.enterState(0);
@@ -314,25 +295,74 @@ public class Play extends BasicGameState{
 		time += a;
 	}
 	
+	private void findingInteraction() {
+		double newX = (int)(yuusha2.getYuushaX()/32)+24;
+		double newY = (int)(yuusha2.getYuushaY()/32)+59;
+		if(checkCollision(yuusha2.getYuushaX(),yuusha2.getYuushaY()-1) == false){
+			double v = newX;
+			double w = newY-1;
+			System.out.println("Found Interaction: "+v+", "+w);
+			objectInteraction(v,w);
+		}
+		if(checkCollision(yuusha2.getYuushaX(),yuusha2.getYuushaY()+1) == false){
+			double v = newX;
+			double w = newY+1;
+			System.out.println("Found Interaction: "+v+", "+w);
+			objectInteraction(v,w);
+		}
+		if(checkCollision(yuusha2.getYuushaX()-1,yuusha2.getYuushaY()) == false){
+			double v = newX-1;
+			double w = newY;
+			System.out.println("Found Interaction: "+v+", "+w);
+			objectInteraction(v,w);
+		}
+		if(checkCollision(yuusha2.getYuushaX()+1,yuusha2.getYuushaY()) == false){
+			double v = newX+1;
+			double w = newY;
+			System.out.println("Found Interaction: "+v+", "+w);
+			objectInteraction(v,w);
+		}		
+	}
+
 	public void objectInteraction(double a, double b) {
 		if(a == 24.0 && b == 62.0){
-			object.setObjectState(true);
-			chest1 = open;
-			System.out.println("Unlocked at: "+a+", "+b);
+			if(object1 == false){				
+				object1 = true;
+				chest1 = open;
+				System.out.println("Unlocked at: "+a+", "+b);
+				System.out.println("Unlocked LEFT Movement");
+			}else{
+				System.out.println("ALREADY UNLOCKED");
+			}
 		}
 		if(a == 21.0 && b == 77.0){
-//			object2 = true;
-			chest2 = open;
-			System.out.println("Unlocked at: "+a+", "+b);
+			if(object2 == false){				
+				object2 = true;
+				chest2 = open;
+				System.out.println("Unlocked at: "+a+", "+b);
+				System.out.println("Unlocked RIGHT Movement");
+			}else{
+				System.out.println("ALREADY UNLOCKED");
+			}
 		}
 		if(a == 45.0 && b == 77.0){
-//			object3 = true;
-			chest3 = open;
-			System.out.println("Unlocked at: "+a+", "+b);
+			if(object3 == false){				
+				object3 = true;
+				chest3 = open;
+				System.out.println("Unlocked at: "+a+", "+b);
+				System.out.println("Unlocked UP Movement");
+			}else{
+				System.out.println("ALREADY UNLOCKED");
+			}
 		}
 		if((a == 38.0 || a == 39.0) && (b == 55.0 || b == 56.0)){
-//			object4 = true;
-			System.out.println("Unlocked Run");
+			if(object4 == false){				
+				object4 = true;
+				System.out.println("Unlocked at: "+a+", "+b);
+				System.out.println("Unlocked RUN");
+			}else{
+				System.out.println("ALREADY UNLOCKED");
+			}
 		}
 	}
 	
