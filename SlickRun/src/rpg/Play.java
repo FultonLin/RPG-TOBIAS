@@ -295,7 +295,7 @@ public class Play extends BasicGameState{
 				System.out.println("Unlocked at: "+a+", "+b);
 				abc.setText("Unlocked LEFT Movement");
 			}else{
-				System.out.println("ALREADY UNLOCKED");
+				abc.setText("ALREADY UNLOCKED");
 			}
 		}
 		if(a == 21.0 && b == 77.0){
@@ -305,7 +305,7 @@ public class Play extends BasicGameState{
 				System.out.println("Unlocked at: "+a+", "+b);
 				abc.setText("Unlocked RIGHT Movement");
 			}else{
-				System.out.println("ALREADY UNLOCKED");
+				abc.setText("ALREADY UNLOCKED");
 			}
 		}
 		if(a == 45.0 && b == 77.0){
@@ -315,7 +315,7 @@ public class Play extends BasicGameState{
 				System.out.println("Unlocked at: "+a+", "+b);
 				abc.setText("Unlocked UP Movement");
 			}else{
-				System.out.println("ALREADY UNLOCKED");
+				abc.setText("ALREADY UNLOCKED");
 			}
 		}
 		if((a == 38.0 || a == 39.0) && (b == 55.0 || b == 56.0)){
@@ -324,7 +324,7 @@ public class Play extends BasicGameState{
 				System.out.println("Unlocked at: "+a+", "+b);
 				abc.setText("Unlocked RUN ability");
 			}else{
-				System.out.println("ALREADY UNLOCKED");
+				abc.setText("ALREADY UNLOCKED");
 			}
 		}
 	}
