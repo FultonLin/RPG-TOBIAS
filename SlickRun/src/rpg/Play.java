@@ -21,12 +21,12 @@ public class Play extends BasicGameState{
 	
 	Player yuusha2;
 	Map map;
-	ObjectClass object; //causing null problems so not using anymore
+	ObjectClass object; //causing null problems
 	boolean quit = false;
 	private TextField abc;
 	private TrueTypeFont font;
 	//MAP
-	private TiledMap tiledmap;//this will not work
+	private TiledMap tiledmap;
 	//CHARACTER
 	private Animation yuusha,moveUp,moveDown,moveLeft,moveRight;
 	//LOADING BAR
@@ -36,6 +36,7 @@ public class Play extends BasicGameState{
 	//OBJECT
 	private boolean blocked[][];
 	private Image chest1,chest2,chest3,open;
+	private int chestX = 0,chestY = 0;
 	private boolean object1 = false;
 	private boolean object2 = false;
 	private boolean object3 = false;
@@ -132,8 +133,7 @@ public class Play extends BasicGameState{
 	}
 	
 	private Animation getAnimation(Image i,int spriteX,int spriteY,int spriteWidth,int spriteHeight,int frames,int duration) {
-		Animation b = new Animation(false);
-		
+		Animation b = new Animation(false);		
 		int c = 0;
 		for(int y = 0;y<spriteY;y++){
 			for(int x = 0;x<spriteX;x++){
@@ -147,12 +147,7 @@ public class Play extends BasicGameState{
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-//		g.drawString("X: " + yuusha2.getYuushaX() + "\nY: " + yuusha2.getYuushaY(), 600, 10);//hero coordinates
-//		abc.render(gc, g);
-//		g.drawRect(12, 500, 1000, 80);
-//		font.drawString(10, 10, "HP:" + yuusha2.getHp(), Color.white);
 		//MAP
-//		map.render((int)x-32,(int)y-32,mapX,mapY,mapX+27,mapY+27);
 		tiledmap.render((int)map.getX()-32,
 				(int)map.getY()-32,
 				map.getMapX(),
@@ -160,22 +155,22 @@ public class Play extends BasicGameState{
 				map.getMapX()+27,
 				map.getMapY()+27);
 		//OBJECT
-//		if(object1 == true){
-//			System.out.println("CHEST IS VISIBLE");
-//			chest.draw(object.getChestX(),object.getChestY());
-//		}
 		if(object1 == true){
-			chest1.draw(50,50);			
+			chest1.draw(chestX+384,chestY+385);			
 		}
-		chest2.draw(50,100);
-		chest3.draw(50,150);
+		if(object2 == true){
+			chest2.draw(chestX+286,chestY+883);			
+		}
+		if(object3 == true){
+			chest3.draw(chestX+1078,chestY+883);			
+		}
 		//CHARACTER
 		yuusha.draw(385,274);
 		
 		//OTHER
 		g.drawString("X: " + yuusha2.getYuushaX() + "\nY: " + yuusha2.getYuushaY(), 600, 10);//hero coordinates
 		abc.render(gc, g);
-		g.drawRect(12, 500, 1000, 80);
+		g.drawRect(abc.getX(), abc.getY(), abc.getWidth(), abc.getHeight());
 		font.drawString(10, 10, "HP:" + yuusha2.getHp(), Color.white);
 		
 		//LOADING BAR-display time
@@ -190,47 +185,43 @@ public class Play extends BasicGameState{
 			if(checkCollision(yuusha2.getYuushaX(),yuusha2.getYuushaY()-1) == true && object3 == true){
 				yuusha = moveUp;
 				yuusha.update(a);
-//				yuushaY--;
-//				y++;
 				yuusha2.setYuushaY(yuusha2.getYuushaY()-1);
 				map.setY(map.getY()+1);
+				chestY++;
+			}else{
+				abc.setText("You do not have the ability to move UP");
 			}
-//			y += a/4.0f;
 		}
 		if(input.isKeyDown(Input.KEY_DOWN)){
 			if(checkCollision(yuusha2.getYuushaX(),yuusha2.getYuushaY()+1) == true){
 				yuusha = moveDown;
 				yuusha.update(a);
-//				yuushaY++;
-//				y--;
 				yuusha2.setYuushaY(yuusha2.getYuushaY()+1);
 				map.setY(map.getY()-1);
+				chestY--;
 			}
-//			y -= a/4.0f;
 		}
 		if(input.isKeyDown(Input.KEY_LEFT)){
 			if(checkCollision(yuusha2.getYuushaX()-1,yuusha2.getYuushaY()) == true && object1 == true){
 				yuusha = moveLeft;
 				yuusha.update(a);
-//				yuushaX--;
-//				x++;
 				yuusha2.setYuushaX(yuusha2.getYuushaX()-1);
 				map.setX(map.getX()+1);
+				chestX++;
 			}else{
-				System.out.println("NO");
+				abc.setText("You do not have the ability to move LEFT");
 			}
-//			x += a/4.0f;
 		}
 		if(input.isKeyDown(Input.KEY_RIGHT)){
 			if(checkCollision(yuusha2.getYuushaX()+1,yuusha2.getYuushaY()) == true && object2 == true){
 				yuusha = moveRight;
 				yuusha.update(a);
-//				yuushaX++;
-//				x--;
 				yuusha2.setYuushaX(yuusha2.getYuushaX()+1);
 				map.setX(map.getX()-1);
+				chestX--;
+			}else{
+				abc.setText("You do not have the ability to move RIGHT");
 			}
-//			x -= a/4.0f;
 		}
 		if(input.isKeyDown(Input.KEY_SPACE)){
 			findingInteraction();
@@ -238,51 +229,28 @@ public class Play extends BasicGameState{
 		if(input.isKeyDown(Input.KEY_ESCAPE)){
 			sbg.enterState(0);
 		}
-		if(input.isKeyPressed(Input.KEY_E)){
+		if(input.isKeyDown(Input.KEY_I)){
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			sbg.enterState(3);
 		}
-		
-//		May be Useless
-//		for(int i = 0; i < mob.size(); i++){
-//			Monster pl = mob.get(i);
-//			if(yuusha2.getYuushaX() > pl.getxpos() && yuusha2.getYuushaX() < pl.getxpos()+ pl.getWidth() 
-//			&& yuusha2.getYuushaY() > pl.getypos() && yuusha2.getYuushaY() < pl.getypos()+ pl.getHeight()){
-//				if(pl.getTarget() == null){
-//					pl.setTarget(yuusha2);
-//					Thread attack = new Thread(pl);
-//					attack.start();
-//				}else if(yuusha2.getTarget() == null){
-//					yuusha2.setTarget(pl);
-//					Thread attack = new Thread(pl);
-//					attack.start();
-//				}
-//			}else{
-//				pl.setTarget(null);
-//				yuusha2.setTarget(null);
-//			}
-//		}
 		// MAP-rendering with movement
 		if(map.getX()<0){
-//			mapX++;
-//			x = 32;
 			map.setMapX(map.getMapX()+1);
 			map.setX(32);
 		}
 		if(map.getX()>32){
-//			mapX--;
-//			x = 0;
 			map.setMapX(map.getMapX()-1);
 			map.setX(0);
 		}
 		if(map.getY()<0){
-//			mapY++;
-//			y = 32;
 			map.setMapY(map.getMapY()+1);
 			map.setY(32);
 		} 
 		if(map.getY()>32){
-//			mapY--;
-//			y = 0;
 			map.setMapY(map.getMapY()-1);
 			map.setY(0);
 		}
@@ -325,7 +293,7 @@ public class Play extends BasicGameState{
 				object1 = true;
 				chest1 = open;
 				System.out.println("Unlocked at: "+a+", "+b);
-				System.out.println("Unlocked LEFT Movement");
+				abc.setText("Unlocked LEFT Movement");
 			}else{
 				System.out.println("ALREADY UNLOCKED");
 			}
@@ -335,7 +303,7 @@ public class Play extends BasicGameState{
 				object2 = true;
 				chest2 = open;
 				System.out.println("Unlocked at: "+a+", "+b);
-				System.out.println("Unlocked RIGHT Movement");
+				abc.setText("Unlocked RIGHT Movement");
 			}else{
 				System.out.println("ALREADY UNLOCKED");
 			}
@@ -345,7 +313,7 @@ public class Play extends BasicGameState{
 				object3 = true;
 				chest3 = open;
 				System.out.println("Unlocked at: "+a+", "+b);
-				System.out.println("Unlocked UP Movement");
+				abc.setText("Unlocked UP Movement");
 			}else{
 				System.out.println("ALREADY UNLOCKED");
 			}
@@ -354,7 +322,7 @@ public class Play extends BasicGameState{
 			if(object4 == false){				
 				object4 = true;
 				System.out.println("Unlocked at: "+a+", "+b);
-				System.out.println("Unlocked RUN");
+				abc.setText("Unlocked RUN ability");
 			}else{
 				System.out.println("ALREADY UNLOCKED");
 			}
@@ -369,3 +337,4 @@ public class Play extends BasicGameState{
 		return 1;
 	}
 }
+
