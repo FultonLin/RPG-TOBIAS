@@ -46,7 +46,7 @@ public class Inventory extends BasicGameState{
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int a) throws SlickException {
 		Input input = gc.getInput();
-		if(input.isKeyDown(Input.KEY_ESCAPE)){
+		if(input.isKeyPressed(input.KEY_E)){
 			sbg.enterState(1);
 		}
 		for(int i = 0; i < inven.size(); i++){

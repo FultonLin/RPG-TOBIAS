@@ -238,12 +238,7 @@ public class Play extends BasicGameState{
 		if(input.isKeyDown(Input.KEY_ESCAPE)){
 			sbg.enterState(0);
 		}
-		if(input.isKeyDown(Input.KEY_I)){
-			try {
-				Thread.sleep(50);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+		if(input.isKeyPressed(Input.KEY_E)){
 			sbg.enterState(3);
 		}
 		
