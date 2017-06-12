@@ -9,7 +9,7 @@ public class Monster implements MonsterInterface,Runnable{
 //	private Player target;
 	private String name;
 	private int hp;
-	private int dmg;
+	private int dmg; 
 	private int spd;
 	
 	
