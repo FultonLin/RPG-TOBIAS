@@ -7,4 +7,6 @@ public interface ItemInterface {
 	int getAttack();
 	String getName();
 	int getAttackSpd();
+	int getNum();
+	void incNum(int num);
 }
