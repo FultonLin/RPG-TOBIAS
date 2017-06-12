@@ -35,7 +35,7 @@ public class Battle extends BasicGameState{
 		ab = new TextField(gc, gc.getDefaultFont(), 800, 100, 100, 50);
 		chest = new Image("resources/chestclose.png");
 		ab.setText(opone.get(0).getName() + "HP:" + opone.get(0).gethp() + "/" + monHP);
-	}
+	} 
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
@@ -55,3 +55,4 @@ public class Battle extends BasicGameState{
 		return 2;
 	}
 }
+
