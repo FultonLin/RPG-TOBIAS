@@ -23,6 +23,10 @@ public class Inventory extends BasicGameState{
 	private TextField abcd;
 	private TextField abcde;
 	
+	private final int armor = 10;
+	private final int weapon = 20;
+	private final int potion = 30;
+	
 	public Inventory(int inventory) {
 		fields = new ArrayList<TextField>();
 		inven = new ArrayList<Item>();
@@ -33,14 +37,19 @@ public class Inventory extends BasicGameState{
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		Font asd = new Font("Helvetica", Font.BOLD, 36);
 		font = new TrueTypeFont(asd , true);
-		abc = new TextField(gc, gc.getDefaultFont(), 50, 150, 300, 300);
+		abc = new TextField(gc, gc.getDefaultFont(), 50, 100, 300, 450);
+		abcd = new TextField(gc,gc.getDefaultFont(), 500, 350, 500, 200);
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-		abc.render(gc, g);
-		g.drawRect(50, 150, 300, 350);
+		createBox(gc,sbg,g,abc);
+		createBox(gc,sbg,g,abcd);
+		g.drawRect(500, 50, 500, 250);
 		font.drawString(25, 25, "Inventory", Color.white);
+		for(int i = 0; i < fields.size();i++){
+			fields.get(i).render(gc, g);
+		}
 	}
  
 	@Override
@@ -49,9 +58,21 @@ public class Inventory extends BasicGameState{
 		if(input.isKeyPressed(input.KEY_E)){
 			sbg.enterState(1);
 		}
-		for(int i = 0; i < inven.size(); i++){
-			abc.setText(inven.get(i).getName());
+		String pl = "";
+		for(int j = 0; j < equip.size(); j++){
+			pl += equip.get(j).getName();
 		}
+		abc.setText(pl);
+		for(int i = 0; i < inven.size(); i++){
+			int pldr = 50;
+			abcde = new TextField(gc,gc.getDefaultFont(), 500, (pldr*i)+50, 500, 30);
+			fields.add(abcde);
+		}
+	}
+	
+	public void createBox(GameContainer gc, StateBasedGame sbg, Graphics g,TextField pl){
+		abc.render(gc, g);
+		g.drawRect(pl.getX(), pl.getY(), pl.getWidth(), pl.getHeight());
 	}
 
 	@Override
@@ -60,7 +81,7 @@ public class Inventory extends BasicGameState{
 	}
 
 	public ArrayList<Item> getEquip() {
-		return equip;  
+		return equip;
 	}
 
 	public void addEquip(Item equip) {
@@ -73,7 +94,7 @@ public class Inventory extends BasicGameState{
 		}
 	}
 	
-	public void addItem(Item equipment){
+	public static void addItem(Item equipment){
 		inven.add(equipment);
 	}
 }
