@@ -7,7 +7,7 @@ public class Item implements ItemInterface{
 	private int attack;
 	private int attackspd;
 	private int def;
-//	private String[] properties;
+	private int num;
 
 	public Item(String name, int type, int attack, int attackspd, int def){
 		this.name = name;
@@ -37,6 +37,16 @@ public class Item implements ItemInterface{
 	@Override
 	public int getAttackSpd() {
 		return attackspd;
+	}
+
+	@Override
+	public int getNum() {
+		return num;
+	}
+
+	@Override
+	public void incNum(int num) {
+		num += num;
 	}
 	
 }
