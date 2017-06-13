@@ -35,7 +35,7 @@ public class Play extends BasicGameState{
 	int duration = 3500;
 	//OBJECT
 	private boolean blocked[][];
-	private Image chest1,chest2,chest3,open;
+	private Image chest1,chest2,chest3,open,openmono;
 	private int chestX = 0,chestY = 0;
 	private boolean object1 = false;
 	private boolean object2 = false;
@@ -64,10 +64,11 @@ public class Play extends BasicGameState{
 		map.setY(0);
 		
 		//OBJECT
-		open = new Image("resources/chestopen.png");
-		chest1 = new Image("resources/chestclose.png");
-		chest2 = new Image("resources/chestclose.png");
-		chest3 = new Image("resources/chestclose.png");
+		chest1 = new Image("resources/TiledMap/chestopen.png");
+		chest2 = new Image("resources/TiledMap/chestopen.png");
+		chest3 = new Image("resources/TiledMap/chestopen.png");
+		open = new Image("resources/TiledMap/chestopen.png");
+		openmono = new Image("resources/TiledMap/chestopen(mono).png");
 		
 		//CHARACTER-animation movement
 		Image yuushasprite1 = new Image("resources/yuushaanimation/yuushaup.png");
@@ -121,7 +122,6 @@ public class Play extends BasicGameState{
 	}
 	
 	public boolean checkCollision(double x, double y) {
-		System.out.println("x is "+x);
 //		if(x > 1600){
 //			x -= 25;
 //			x = (int)((x)/32)+24;
@@ -317,7 +317,7 @@ public class Play extends BasicGameState{
 		if(a == 24.0 && b == 62.0){
 			if(object1 == false){				
 				object1 = true;
-				chest1 = open;
+				chest1 = openmono;
 				System.out.println("Unlocked at: "+a+", "+b);
 				abc.setText("Unlocked LEFT Movement");
 			}
@@ -328,7 +328,7 @@ public class Play extends BasicGameState{
 		if(a == 21.0 && b == 77.0){
 			if(object2 == false){				
 				object2 = true;
-				chest2 = open;
+				chest2 = openmono;
 				System.out.println("Unlocked at: "+a+", "+b);
 				abc.setText("Unlocked RIGHT Movement");
 			}
@@ -339,7 +339,7 @@ public class Play extends BasicGameState{
 		if(a == 45.0 && b == 77.0){
 			if(object3 == false){				
 				object3 = true;
-				chest3 = open;
+				chest3 = openmono;
 				System.out.println("Unlocked at: "+a+", "+b);
 				abc.setText("Unlocked UP Movement");
 			}
@@ -351,6 +351,9 @@ public class Play extends BasicGameState{
 			if(object4 == false){				
 				object4 = true;
 				tiledmap = colormap;
+				chest1 = open;
+				chest2 = open;
+				chest3 = open;
 				System.out.println("Unlocked at: "+a+", "+b);
 				abc.setText("Unlocked the COLOR of the world");
 			}
