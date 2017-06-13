@@ -26,13 +26,13 @@ public class Play extends BasicGameState{
 	private TextField abc;
 	private TrueTypeFont font;
 	//MAP
-	private TiledMap tiledmap;
+	private TiledMap tiledmap,monomap,colormap;
 	//CHARACTER
 	private Animation yuusha,moveUp,moveDown,moveLeft,moveRight;
 	//LOADING BAR
-	private Image loading;
+	private Image loading1,loading2,loading3,loading4,loading5,loading6,loading7;
 	int time = 0;
-	int duration = 2000;
+	int duration = 3500;
 	//OBJECT
 	private boolean blocked[][];
 	private Image chest1,chest2,chest3,open;
@@ -51,12 +51,14 @@ public class Play extends BasicGameState{
 	}
 
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+		input = gc.getInput();
 		abc = new TextField(gc, gc.getDefaultFont(), 12, 500, 1000, 80);
 		Font asd = new Font("Helvetica", Font.BOLD, 24);
 		font = new TrueTypeFont(asd , true);
 		//MAP-display
-		tiledmap = new TiledMap("resources/TiledMap/rpgmap.tmx");
-		input = gc.getInput();
+		monomap = new TiledMap("resources/TiledMap/rpgmap(monocolor).tmx");
+		colormap = new TiledMap("resources/TiledMap/rpgmap.tmx");
+		tiledmap = monomap;
 		collisionRect();
 		map.setX(0);
 		map.setY(0);
@@ -80,7 +82,13 @@ public class Play extends BasicGameState{
 		yuusha = moveDown;
 		
 		//LOADING BAR
-		loading = new Image("resources/loadingbar.jpg");
+		loading1 = new Image("resources/loadingbar/loadingbar1.jpg");
+		loading2 = new Image("resources/loadingbar/loadingbar2.jpg");
+		loading3 = new Image("resources/loadingbar/loadingbar3.jpg");
+		loading4 = new Image("resources/loadingbar/loadingbar4.jpg");
+		loading5 = new Image("resources/loadingbar/loadingbar5.jpg");
+		loading6 = new Image("resources/loadingbar/loadingbar6.jpg");
+		loading7 = new Image("resources/loadingbar/loadingbar7.jpg");
 	}
 	
 	public void collisionRect() {
@@ -165,7 +173,7 @@ public class Play extends BasicGameState{
 			chest3.draw(chestX+1078,chestY+883);			
 		}
 		//CHARACTER
-		yuusha.draw(385,274);
+		yuusha.draw(384,274);
 		
 		//OTHER
 		g.drawString("X: " + yuusha2.getYuushaX() + "\nY: " + yuusha2.getYuushaY(), 600, 10);//hero coordinates
@@ -174,8 +182,26 @@ public class Play extends BasicGameState{
 		font.drawString(10, 10, "HP:" + yuusha2.getHp(), Color.white);
 		
 		//LOADING BAR-display time
-		if (time<duration) {
-			loading.draw(0,0,1.5f);
+		if(time<duration) {
+			loading1.draw(0,0,1.5f);
+			if(time>500 && time<1000){
+				loading1 = loading2;
+			}
+			if(time>1000 && time<1500){
+				loading1 = loading3;
+			}
+			if(time>1500 && time<2000){
+				loading1 = loading4;
+			}
+			if(time>2000 && time<2500){
+				loading1 = loading5;
+			}
+			if(time>2500 && time<3000){
+				loading1 = loading6;
+			}
+			if(time>3000 && time<3500){
+				loading1 = loading7;
+			}
 		}
 	} 
 
@@ -188,7 +214,7 @@ public class Play extends BasicGameState{
 				yuusha2.setYuushaY(yuusha2.getYuushaY()-1);
 				map.setY(map.getY()+1);
 				chestY++;
-			}else{
+			}else if(object3 == false){
 				abc.setText("You do not have the ability to move UP");
 			}
 		}
@@ -208,7 +234,7 @@ public class Play extends BasicGameState{
 				yuusha2.setYuushaX(yuusha2.getYuushaX()-1);
 				map.setX(map.getX()+1);
 				chestX++;
-			}else{
+			}else if(object1 == false){
 				abc.setText("You do not have the ability to move LEFT");
 			}
 		}
@@ -219,7 +245,7 @@ public class Play extends BasicGameState{
 				yuusha2.setYuushaX(yuusha2.getYuushaX()+1);
 				map.setX(map.getX()-1);
 				chestX--;
-			}else{
+			}else if(object2 == false){
 				abc.setText("You do not have the ability to move RIGHT");
 			}
 		}
@@ -294,9 +320,10 @@ public class Play extends BasicGameState{
 				chest1 = open;
 				System.out.println("Unlocked at: "+a+", "+b);
 				abc.setText("Unlocked LEFT Movement");
-			}else{
-				abc.setText("ALREADY UNLOCKED");
 			}
+//			else{
+//				abc.setText("ALREADY UNLOCKED");
+//			}
 		}
 		if(a == 21.0 && b == 77.0){
 			if(object2 == false){				
@@ -304,9 +331,10 @@ public class Play extends BasicGameState{
 				chest2 = open;
 				System.out.println("Unlocked at: "+a+", "+b);
 				abc.setText("Unlocked RIGHT Movement");
-			}else{
-				abc.setText("ALREADY UNLOCKED");
 			}
+//			else{
+//				abc.setText("ALREADY UNLOCKED");
+//			}
 		}
 		if(a == 45.0 && b == 77.0){
 			if(object3 == false){				
@@ -314,18 +342,21 @@ public class Play extends BasicGameState{
 				chest3 = open;
 				System.out.println("Unlocked at: "+a+", "+b);
 				abc.setText("Unlocked UP Movement");
-			}else{
-				abc.setText("ALREADY UNLOCKED");
 			}
+//			else{
+//				abc.setText("ALREADY UNLOCKED");
+//			}
 		}
 		if((a == 38.0 || a == 39.0) && (b == 55.0 || b == 56.0)){
 			if(object4 == false){				
 				object4 = true;
+				tiledmap = colormap;
 				System.out.println("Unlocked at: "+a+", "+b);
-				abc.setText("Unlocked RUN ability");
-			}else{
-				abc.setText("ALREADY UNLOCKED");
+				abc.setText("Unlocked the COLOR of the world");
 			}
+//			else{
+//				abc.setText("ALREADY UNLOCKED");
+//			}
 		}
 	}
 	
