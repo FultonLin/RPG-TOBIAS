@@ -35,13 +35,15 @@ public class Play extends BasicGameState{
 	int duration = 3500;
 	//OBJECT
 	private boolean blocked[][];
-	private Image chest1,chest2,chest3,open,openmono;
-	private int chestX = 0,chestY = 0;
+	private Image chest1,chest2,chest3,chest4,open,openmono;
+	private double chestX = 0,chestY = 0;
 	private boolean object1 = false;
 	private boolean object2 = false;
 	private boolean object3 = false;
 	private boolean object4 = false;
-	 
+	private boolean object5 = false;
+	private boolean object6 = false;
+	
 	Input input;
 	
 	public Play(int state) {
@@ -67,6 +69,7 @@ public class Play extends BasicGameState{
 		chest1 = new Image("resources/TiledMap/chestopen.png");
 		chest2 = new Image("resources/TiledMap/chestopen.png");
 		chest3 = new Image("resources/TiledMap/chestopen.png");
+		chest4 = new Image("resources/TiledMap/chestopen.png");
 		open = new Image("resources/TiledMap/chestopen.png");
 		openmono = new Image("resources/TiledMap/chestopen(mono).png");
 		
@@ -112,7 +115,7 @@ public class Play extends BasicGameState{
 //		        }
 //		        if(tileID != 0){
 		        if(objecttileID != 0 || firsttileID != 0 || secondtileID != 0 || walltileID != 0){
-		        	System.out.println("Collision found at  "+x+", "+y);
+//		        	System.out.println("Collision found at  "+x+", "+y);
 		        	if(blocked[x][y] != true){
 		        		blocked[x][y] = true;
 		        	}
@@ -121,18 +124,43 @@ public class Play extends BasicGameState{
 		}
 	}
 	
-	public boolean checkCollision(double x, double y) {
-//		if(x > 1600){
-//			x -= 25;
-//			x = (int)((x)/32)+24;
-//		}else{
-			x = (int)((x/32))+24;
-//		}
+	public boolean checkCollision(double x, double y) {		
+		if(x<-100){
+			x -= 32;
+		}else if(x<0 && x>-5 && y<13 && y>-11){
+			x -= 32;
+		}else if(x<6 && x>0 && y<13 && y>-11){
+			x += 32;
+		}else if(x<0 && x>-33 && y<13 && y>-11){
+			x -= 32;
+		}else if(x<33 && x>0 && y<13 && y>-11){
+			x += 32;
+		}else if(x<6 && x>-5 && y<10 && y>-10){
+			y -= 64;
+		}else if(x<-65 && y<608 && y>580){
+			x -= 32;
+		}else if(x<696 && x>100 && y<-79 && y>-150){
+			y -= 32;
+		}else if(x<20 && x>-32 && y<100 && y>70){
+			y += 32;			
+		}else if(x<720 && x>695){
+			x += 10;		
+		}
+		
+		if(x<795 && x>750){
+			x -= 32;
+		}else if(x<1600 && x>795){
+			x -= 16;			
+		}
+		else if(x<695 && x>-100 && y<-200){
+			y += 32;
+		}
+		x = (int)((x/32))+24;		
 		y = (int)((y/32))+59;
 		System.out.println("Checking for Collision at "+x+", "+y);
 		for(int i = 0; i < blocked.length; i++) {
 			for(int j = 0; j < blocked[i].length; j++) {
-				if(blocked[i][j] == true && i == x && j ==y) {
+				if(blocked[i][j] == true && i == x && j == y) {
 					return false;
 				}
 			}
@@ -164,13 +192,16 @@ public class Play extends BasicGameState{
 				map.getMapY()+27);
 		//OBJECT
 		if(object1 == true){
-			chest1.draw(chestX+384,chestY+385);			
+			chest1.draw((int)chestX+384,(int)chestY+385);			
 		}
 		if(object2 == true){
-			chest2.draw(chestX+286,chestY+883);			
+			chest2.draw((int)chestX+286,(int)chestY+883);			
 		}
 		if(object3 == true){
-			chest3.draw(chestX+1078,chestY+883);			
+			chest3.draw((int)chestX+1078,(int)chestY+883);			
+		}
+		if(object5 == true){
+			chest4.draw((int)chestX+1407,(int)chestY+420);			
 		}
 		//CHARACTER
 		yuusha.draw(384,274);
@@ -208,7 +239,8 @@ public class Play extends BasicGameState{
 	public void update(GameContainer gc, StateBasedGame sbg, int a) throws SlickException {		
 		//CHARACTER-keyboard input
 		if(input.isKeyDown(Input.KEY_UP)){
-			if(checkCollision(yuusha2.getYuushaX(),yuusha2.getYuushaY()-1) == true && object3 == true){
+//			if(checkCollision(yuusha2.getYuushaX(),yuusha2.getYuushaY()-1) == true && object3 == true){
+			if(checkCollision(yuusha2.getYuushaX(),yuusha2.getYuushaY()-1) == true){ 
 				yuusha = moveUp;
 				yuusha.update(a);
 				yuusha2.setYuushaY(yuusha2.getYuushaY()-1);
@@ -228,7 +260,8 @@ public class Play extends BasicGameState{
 			}
 		}
 		if(input.isKeyDown(Input.KEY_LEFT)){
-			if(checkCollision(yuusha2.getYuushaX()-1,yuusha2.getYuushaY()) == true && object1 == true){
+//			if(checkCollision(yuusha2.getYuushaX()-1,yuusha2.getYuushaY()) == true && object1 == true){
+			if(checkCollision(yuusha2.getYuushaX()-1,yuusha2.getYuushaY()) == true){
 				yuusha = moveLeft;
 				yuusha.update(a);
 				yuusha2.setYuushaX(yuusha2.getYuushaX()-1);
@@ -239,7 +272,8 @@ public class Play extends BasicGameState{
 			}
 		}
 		if(input.isKeyDown(Input.KEY_RIGHT)){
-			if(checkCollision(yuusha2.getYuushaX()+1,yuusha2.getYuushaY()) == true && object2 == true){
+//			if(checkCollision(yuusha2.getYuushaX()+1,yuusha2.getYuushaY()) == true && object2 == true){
+			if(checkCollision(yuusha2.getYuushaX()+1,yuusha2.getYuushaY()) == true){	
 				yuusha = moveRight;
 				yuusha.update(a);
 				yuusha2.setYuushaX(yuusha2.getYuushaX()+1);
@@ -321,9 +355,6 @@ public class Play extends BasicGameState{
 				System.out.println("Unlocked at: "+a+", "+b);
 				abc.setText("Unlocked LEFT Movement");
 			}
-//			else{
-//				abc.setText("ALREADY UNLOCKED");
-//			}
 		}
 		if(a == 21.0 && b == 77.0){
 			if(object2 == false){				
@@ -332,9 +363,6 @@ public class Play extends BasicGameState{
 				System.out.println("Unlocked at: "+a+", "+b);
 				abc.setText("Unlocked RIGHT Movement");
 			}
-//			else{
-//				abc.setText("ALREADY UNLOCKED");
-//			}
 		}
 		if(a == 45.0 && b == 77.0){
 			if(object3 == false){				
@@ -343,23 +371,41 @@ public class Play extends BasicGameState{
 				System.out.println("Unlocked at: "+a+", "+b);
 				abc.setText("Unlocked UP Movement");
 			}
-//			else{
-//				abc.setText("ALREADY UNLOCKED");
-//			}
 		}
 		if((a == 38.0 || a == 39.0) && (b == 55.0 || b == 56.0)){
 			if(object4 == false){				
 				object4 = true;
+				System.out.println("Unlocked at: "+a+", "+b);
+				abc.setText("Unlocked RUNNING SHOES");
+			}
+		}
+		if(a == 55.0 && b == 63.0){
+			if(object5 == false){				
+				object5 = true;
 				tiledmap = colormap;
 				chest1 = open;
 				chest2 = open;
 				chest3 = open;
+				chest4 = open;
 				System.out.println("Unlocked at: "+a+", "+b);
 				abc.setText("Unlocked the COLOR of the world");
 			}
-//			else{
-//				abc.setText("ALREADY UNLOCKED");
-//			}
+		}
+		if(a == 58.0 && b == 28.0){
+			if(object6 == false){				
+				object6 = true;
+				System.out.println("Unlocked at: "+a+", "+b);
+				abc.setText("You hear a weird voice calling out.");
+			}
+		}
+		if(a == 35.0 && b == 65.0){
+			abc.setText("The Village of the Beginning\nCurrent Population: 1");			
+		}
+		if(a == 49.0 && b == 65.0){
+			abc.setText("The Forest of the Beginning. Beware of hidden monsters.");			
+		}
+		if(a == 58.0 && b == 34.0){
+			abc.setText("Graveyard for all the fallen warriors that fought against the demon king.\nThis is also where the previous fallen HERO lies.");			
 		}
 	}
 	
