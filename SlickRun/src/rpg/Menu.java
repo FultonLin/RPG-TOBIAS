@@ -44,7 +44,6 @@ public class Menu extends BasicGameState{
 		if(xpos > 425 && xpos < 425+font.getWidth(thingy) && ypos > 400-font.getHeight(thingy) && ypos < 400){
 			if(input.isMouseButtonDown(0)){
 				sbg.enterState(4);
-				
 				thingy = "Resume Game";
 			}
 		}
