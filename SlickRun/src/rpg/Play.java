@@ -124,7 +124,8 @@ public class Play extends BasicGameState{
 		}
 	}
 	
-	public boolean checkCollision(double x, double y) {		
+	public boolean checkCollision(double x, double y) {	
+		//CUSTOMIZING COLLISION
 		if(x<-100){
 			x -= 32;
 		}else if(x<0 && x>-5 && y<13 && y>-11){
@@ -145,15 +146,22 @@ public class Play extends BasicGameState{
 			y += 32;			
 		}else if(x<720 && x>695){
 			x += 10;		
-		}
-		
-		if(x<795 && x>750){
+		}else if(x<795 && x>750){
 			x -= 32;
 		}else if(x<1600 && x>795){
 			x -= 16;			
-		}
-		else if(x<695 && x>-100 && y<-200){
-			y += 32;
+		}else if(x>1650){
+			x -= 32;
+			if(x<2170 && x>2000 && y>-270){
+				x -= 32;
+			}else if(x>2275 && y>-270){
+				x -= 32;
+			}else if(x>1690 && y<-270 && y>-1150){
+				x -= 16;
+				if(y<-600 && y>-1150){
+					y += 16;
+				}
+			}		
 		}
 		x = (int)((x/32))+24;		
 		y = (int)((y/32))+59;
@@ -243,9 +251,15 @@ public class Play extends BasicGameState{
 			if(checkCollision(yuusha2.getYuushaX(),yuusha2.getYuushaY()-1) == true){ 
 				yuusha = moveUp;
 				yuusha.update(a);
-				yuusha2.setYuushaY(yuusha2.getYuushaY()-1);
-				map.setY(map.getY()+1);
-				chestY++;
+				if(input.isKeyDown(Input.KEY_LSHIFT) && object4 == true){
+					yuusha2.setYuushaY(yuusha2.getYuushaY()-1.5);
+					map.setY(map.getY()+1.5);
+					chestY+=1.5;
+				}else{
+					yuusha2.setYuushaY(yuusha2.getYuushaY()-1);
+					map.setY(map.getY()+1);
+					chestY++;
+				}
 			}else if(object3 == false){
 				abc.setText("You do not have the ability to move UP");
 			}
@@ -254,9 +268,15 @@ public class Play extends BasicGameState{
 			if(checkCollision(yuusha2.getYuushaX(),yuusha2.getYuushaY()+1) == true){
 				yuusha = moveDown;
 				yuusha.update(a);
-				yuusha2.setYuushaY(yuusha2.getYuushaY()+1);
-				map.setY(map.getY()-1);
-				chestY--;
+				if(input.isKeyDown(Input.KEY_LSHIFT) && object4 == true){
+					yuusha2.setYuushaY(yuusha2.getYuushaY()+1.5);
+					map.setY(map.getY()-1.5);
+					chestY-=1.5;
+				}else{
+					yuusha2.setYuushaY(yuusha2.getYuushaY()+1);
+					map.setY(map.getY()-1);
+					chestY--;
+				}
 			}
 		}
 		if(input.isKeyDown(Input.KEY_LEFT)){
@@ -264,9 +284,15 @@ public class Play extends BasicGameState{
 			if(checkCollision(yuusha2.getYuushaX()-1,yuusha2.getYuushaY()) == true){
 				yuusha = moveLeft;
 				yuusha.update(a);
-				yuusha2.setYuushaX(yuusha2.getYuushaX()-1);
-				map.setX(map.getX()+1);
-				chestX++;
+				if(input.isKeyDown(Input.KEY_LSHIFT) && object4 == true){
+					yuusha2.setYuushaX(yuusha2.getYuushaX()-1.5);
+					map.setX(map.getX()+1.5);
+					chestX+=1.5;
+				}else{
+					yuusha2.setYuushaX(yuusha2.getYuushaX()-1);
+					map.setX(map.getX()+1);
+					chestX++;
+				}
 			}else if(object1 == false){
 				abc.setText("You do not have the ability to move LEFT");
 			}
@@ -276,9 +302,15 @@ public class Play extends BasicGameState{
 			if(checkCollision(yuusha2.getYuushaX()+1,yuusha2.getYuushaY()) == true){	
 				yuusha = moveRight;
 				yuusha.update(a);
-				yuusha2.setYuushaX(yuusha2.getYuushaX()+1);
-				map.setX(map.getX()-1);
-				chestX--;
+				if(input.isKeyDown(Input.KEY_LSHIFT) && object4 == true){
+					yuusha2.setYuushaX(yuusha2.getYuushaX()+1.5);
+					map.setX(map.getX()-1.5);
+					chestX-=1.5;
+				}else{
+					yuusha2.setYuushaX(yuusha2.getYuushaX()+1);
+					map.setX(map.getX()-1);
+					chestX--;
+				}
 			}else if(object2 == false){
 				abc.setText("You do not have the ability to move RIGHT");
 			}
@@ -371,7 +403,7 @@ public class Play extends BasicGameState{
 			if(object4 == false){				
 				object4 = true;
 				System.out.println("Unlocked at: "+a+", "+b);
-				abc.setText("Unlocked RUNNING SHOES");
+				abc.setText("Unlocked RUNNING SHOES. Hold LEFT SHIFT to RUN.");
 			}
 		}
 		if(a == 55.0 && b == 63.0){
