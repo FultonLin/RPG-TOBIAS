@@ -36,7 +36,7 @@ public class Play extends BasicGameState{
 	int duration = 3500;
 	//OBJECT
 	private boolean blocked[][];
-	private Image chest1,chest2,chest3,chest4,open,openmono;
+	private Image chest1,chest2,chest3,chest4,chest5,chest6,chest7,open,openmono;
 	private double chestX = 0,chestY = 0;
 	private boolean object1 = false;
 	private boolean object2 = false;
@@ -44,6 +44,9 @@ public class Play extends BasicGameState{
 	private boolean object4 = false;
 	private boolean object5 = false;
 	private boolean object6 = false;
+	private boolean object7 = false;
+	private boolean object8 = false;
+	private boolean object9 = false;
 	
 	private ArrayList<Monster> opone;
 	private boolean acceptingInput;
@@ -92,6 +95,9 @@ public class Play extends BasicGameState{
 		chest2 = new Image("resources/TiledMap/chestopen.png");
 		chest3 = new Image("resources/TiledMap/chestopen.png");
 		chest4 = new Image("resources/TiledMap/chestopen.png");
+		chest5 = new Image("resources/TiledMap/chestopen.png");
+		chest6 = new Image("resources/TiledMap/chestopen.png");
+		chest7 = new Image("resources/TiledMap/chestopen.png");
 		open = new Image("resources/TiledMap/chestopen.png");
 		openmono = new Image("resources/TiledMap/chestopen(mono).png");
 		
@@ -183,7 +189,9 @@ public class Play extends BasicGameState{
 				if(y<-600 && y>-1150){
 					y += 16;
 				}
-			}		
+			}else if(y<-1700){
+				y += 32;
+			}
 		}
 		x = (int)((x/32))+24;		
 		y = (int)((y/32))+59;
@@ -234,10 +242,20 @@ public class Play extends BasicGameState{
 		if(object5 == true){
 			chest4.draw((int)chestX+1407,(int)chestY+420);			
 		}
+		if(object7 == true){
+			chest5.draw((int)chestX+679,(int)chestY-732);			
+		}
+		if(object8 == true){
+			chest6.draw((int)chestX+2758,(int)chestY-223);			
+		}
+		if(object9 == true){
+			chest7.draw((int)chestX+2464,(int)chestY-1629);			
+		}
 		//CHARACTER
 		yuusha.draw(384,274);
 		
 		//OTHER
+		g.setColor(Color.white);
 		g.drawString("X: " + yuusha2.getYuushaX() + "\nY: " + yuusha2.getYuushaY(), 600, 10);//hero coordinates
 		abc.render(gc, g);
 		g.drawRect(abc.getX(), abc.getY(), abc.getWidth(), abc.getHeight());
@@ -296,8 +314,9 @@ public class Play extends BasicGameState{
 					acceptingInput = false;
 					yuusha2.decHp(opone.get(0).getdmg());
 				}else if(xpos > 462-(font.getWidth(idk3)) && xpos < 462 && ypos < 250 +(font.getHeight(idk3)) && ypos > 250 -(font.getHeight(idk3)) && input.isMousePressed(0)){
-					abc.setText("You used special"+"\n"+"You did " + (int)(yuusha2.getDmg()*1.2));
-					opone.get(0).decreaseHp((int)(yuusha2.getDmg()*(Math.random()+1)));
+					int idkk = (int) (yuusha2.getDmg()*(Math.random()+1));
+					abc.setText("You used special"+"\n"+"You did " + idkk);
+					opone.get(0).decreaseHp(idkk);
 					acceptingInput = false;
 					yuusha2.decHp(opone.get(0).getdmg());
 				}else if(xpos > 562-(font.getWidth(idk2)) && xpos < 562 && ypos < 300 +(font.getHeight(idk2)) && ypos > 300 -(font.getHeight(idk2)) && input.isMousePressed(0)){
@@ -323,8 +342,9 @@ public class Play extends BasicGameState{
 			}
 			if(yuusha2.getHp() == 0){
 				abc.setText("You have Died");
-				System.exit(0);
-			}else if(opone.get(0).gethp() == 0){
+				sbg.getState(0).init(gc, sbg);
+	            sbg.enterState(0);
+			}else if(opone.get(0).gethp() <= 0){
 				counter = 1;
 				opone.remove(0);
 				idk = "";
@@ -340,8 +360,8 @@ public class Play extends BasicGameState{
 			placeHolder2 = "HP: " + yuusha2.getHp();
 			//CHARACTER-keyboard input
 			if(input.isKeyDown(Input.KEY_UP)){
-//				if(checkCollision(yuusha2.getYuushaX(),yuusha2.getYuushaY()-1) == true && object3 == true){
-				if(checkCollision(yuusha2.getYuushaX(),yuusha2.getYuushaY()-1) == true){ 
+				if(checkCollision(yuusha2.getYuushaX(),yuusha2.getYuushaY()-1) == true && object3 == true){
+//				if(checkCollision(yuusha2.getYuushaX(),yuusha2.getYuushaY()-1) == true){ 
 					yuusha = moveUp;
 					yuusha.update(a);
 					if(input.isKeyDown(Input.KEY_LSHIFT) && object4 == true){
@@ -373,8 +393,8 @@ public class Play extends BasicGameState{
 				}
 			}
 			if(input.isKeyDown(Input.KEY_LEFT)){
-//				if(checkCollision(yuusha2.getYuushaX()-1,yuusha2.getYuushaY()) == true && object1 == true){
-				if(checkCollision(yuusha2.getYuushaX()-1,yuusha2.getYuushaY()) == true){
+				if(checkCollision(yuusha2.getYuushaX()-1,yuusha2.getYuushaY()) == true && object1 == true){
+//				if(checkCollision(yuusha2.getYuushaX()-1,yuusha2.getYuushaY()) == true){
 					yuusha = moveLeft;
 					yuusha.update(a);
 					if(input.isKeyDown(Input.KEY_LSHIFT) && object4 == true){
@@ -391,8 +411,8 @@ public class Play extends BasicGameState{
 				}
 			}
 			if(input.isKeyDown(Input.KEY_RIGHT)){
-	//			if(checkCollision(yuusha2.getYuushaX()+1,yuusha2.getYuushaY()) == true && object2 == true){
-				if(checkCollision(yuusha2.getYuushaX()+1,yuusha2.getYuushaY()) == true){	
+				if(checkCollision(yuusha2.getYuushaX()+1,yuusha2.getYuushaY()) == true && object2 == true){
+//				if(checkCollision(yuusha2.getYuushaX()+1,yuusha2.getYuushaY()) == true){	
 					yuusha = moveRight;
 					yuusha.update(a);
 					if(input.isKeyDown(Input.KEY_LSHIFT) && object4 == true){
@@ -416,6 +436,10 @@ public class Play extends BasicGameState{
 			}
 			if(input.isKeyPressed(Input.KEY_I)){
 				sbg.enterState(3);
+			}
+			if(object9 == true){
+				sbg.getState(Game.play).init(gc, sbg);
+	            sbg.enterState(Game.play);
 			}
 			// MAP-rendering with movement
 			if(map.getX()<0){
@@ -517,7 +541,7 @@ public class Play extends BasicGameState{
 			if(object6 == false){				
 				object6 = true;
 				System.out.println("Unlocked at: "+a+", "+b);
-				abc.setText("You hear a weird voice calling out.");
+				abc.setText("You hear a weird voice calling out.\nINSERT CUTSCENE :)");
 			}
 		}
 		if(a == 35.0 && b == 65.0){
@@ -528,6 +552,36 @@ public class Play extends BasicGameState{
 		}
 		if(a == 58.0 && b == 34.0){
 			abc.setText("Graveyard for all the fallen warriors that fought against the demon king.\nThis is also where the previous fallen HERO lies.");			
+		}
+		if(a == 78.0 && b == 65.0){
+			abc.setText("KEEP AWAY. DANGEROUS!");			
+		}
+		if(a == 92.0 && b == 50.0){
+			abc.setText("The Maze");			
+		}
+		if(a == 33.0 && b == 28.0){
+			if(object7 == false){				
+				object7 = true;
+				chest5 = open;
+				System.out.println("Unlocked at: "+a+", "+b);
+				abc.setText("Obtained INVISIBILITY CLOAK");
+			}			
+		}
+		if(a == 98.0 && b == 44.0){
+			if(object8 == false){
+				object8 = true;
+				chest6 = open;
+				System.out.println("Unlocked at: "+a+", "+b);
+				abc.setText("Obtained LEGENDARY ARMOR");
+			}
+		}
+		if((a == 89.0 && b == 1.0) || (a == 88.0 && b == 2.0)){
+			if(object9 == false){				
+				object9 = true;
+				chest7 = open;
+				System.out.println("Unlocked at: "+a+", "+b);
+				abc.setText("END");
+			}			
 		}
 	}
 
