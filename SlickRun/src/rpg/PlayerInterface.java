@@ -7,6 +7,5 @@ public interface PlayerInterface {
 	void setYuushaY(double yuushaY);
 	int getHp();
 	void decHp(int dmg);
-	int getspd();
 	int getDmg(); 
 }
