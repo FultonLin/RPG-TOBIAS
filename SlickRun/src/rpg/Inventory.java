@@ -67,7 +67,7 @@ public class Inventory extends BasicGameState{
 		String pl = "";
 		for(int j = 0; j < equip.size(); j++){
 			if(equip.get(j).getType().equals("Weapon")){
-				pl += equip.get(j).getType() + " name: " + equip.get(j).getName() + " Atk: " + equip.get(j).getAttack() + " Spd: " + equip.get(j).getAttackSpd() + "\n";
+				pl += equip.get(j).getType() + " name: " + equip.get(j).getName() + " Atk: " + equip.get(j).getAttack() + "\n";
 			}else if(equip.get(j).getType().equals("Armor")){
 				pl += equip.get(j).getType() + " name: " + equip.get(j).getName() + " Def: " + equip.get(j).getdef() + "\n";
 			}
