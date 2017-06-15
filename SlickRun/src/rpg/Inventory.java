@@ -20,9 +20,13 @@ public class Inventory extends BasicGameState{
 	protected static ArrayList<Item> equip;
 	private Item[] shown;
 	private String[] field;
-	private TrueTypeFont[] field2;
+	private TrueTypeFont field2;
 	private TrueTypeFont font;
 	private TextField abc;
+	private Item shown1;
+	private Item shown2;
+	private Item shown3;
+	private Item temp;
 	
 	public Inventory(int inventory) {
 		inven = new ArrayList<Item>();
@@ -36,12 +40,10 @@ public class Inventory extends BasicGameState{
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-		field2 = new TrueTypeFont[3];
 		Font asd = new Font("Helvetica", Font.BOLD, 24);
 		font = new TrueTypeFont(asd , true);
-		field2[0] = new TrueTypeFont(asd, true);
-		field2[1] = new TrueTypeFont(asd, true);
-		field2[2] = new TrueTypeFont(asd, true);
+		Font abd = new Font("Helvetica", Font.BOLD, 24);
+		field2 = new TrueTypeFont(asd, true);
 		abc = new TextField(gc, gc.getDefaultFont(), 50, 100, 350, 450);
 	}
 
@@ -49,9 +51,9 @@ public class Inventory extends BasicGameState{
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		createBox(gc,sbg,g,abc);
 		font.drawString(500, 800, "Use", Color.white);
-		field2[0].drawString(500, 100, field[0], Color.white);
-		field2[1].drawString(500, 150, field[1], Color.white);
-		field2[2].drawString(500, 200, field[2], Color.white);
+		field2.drawString(500, 100, field[0], Color.white);
+		field2.drawString(500, 150, field[1], Color.white);
+		field2.drawString(500, 200, field[2], Color.white);
 		font.drawString(25, 25, "Inventory", Color.white);
 	}
  
@@ -60,7 +62,7 @@ public class Inventory extends BasicGameState{
 		Input input = gc.getInput();
 		int xpos = Mouse.getX();
 		int ypos = Mouse.getY();
-		if(input.isKeyPressed(input.KEY_I)){
+		if(input.isKeyPressed(Input.KEY_I)){
 			sbg.enterState(1);
 		}
 		
@@ -82,20 +84,30 @@ public class Inventory extends BasicGameState{
 			}
 			count++;
 		}
-		
+	
 		int placeHolder = 100;
-		for(int i = 0; i < field2.length;i++){
-			if(xpos > 500 && xpos < 500 + field2[i].getWidth(field[i]) && ypos < 600 - placeHolder && ypos > 600 - (placeHolder + field2[i].getHeight(field[i])) && input.isMousePressed(0)){
-				for(int j = 0; j < inven.size(); j++){
-					if(shown[i].getName().equals(inven.get(j).getName())){
-						shown[0] = inven.get(j % inven.size());
-						shown[1] = inven.get((j+1) % inven.size());
-						shown[2] = inven.get((j+2) % inven.size());
-					}
+		if(xpos > 500 && xpos < 500 + field2.getWidth(field[1]) &&
+				ypos < 600 - placeHolder && ypos > 600 - (placeHolder + field2.getHeight(field[1])) 
+					&& input.isMousePressed(0)){
+			for(int j = 0; j < inven.size(); j++){
+				if(shown2.getName().equals(inven.get(j).getName())){
+					shown[0] = inven.get(j % inven.size());
+					shown[1] = inven.get((j+1) % inven.size());
+					shown[2] = inven.get((j+2) % inven.size());
 				}
 			}
-			placeHolder += 50;
+		}else if(xpos > 500 && xpos < 500 + field2.getWidth(field[2]) &&
+				ypos < 600 - placeHolder && ypos > 600 - (placeHolder + field2.getHeight(field[2])) 
+					&& input.isMousePressed(0)){
+			for(int j = 0; j < inven.size(); j++){
+				if(shown3.getName().equals(inven.get(j).getName())){
+					shown[0] = inven.get(j % inven.size());
+					shown[1] = inven.get((j+1) % inven.size());
+					shown[2] = inven.get((j+2) % inven.size());
+				}
+			}
 		}
+		placeHolder += 50;
 		
 		for(int i = 0; i < shown.length; i++){
 			if(shown[i] != null){
