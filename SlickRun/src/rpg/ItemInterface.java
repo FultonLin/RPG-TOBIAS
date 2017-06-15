@@ -9,4 +9,5 @@ public interface ItemInterface {
 	int getAttackSpd();
 	int getNum();
 	void incNum(int num);
+	int getStackNum();
 }
