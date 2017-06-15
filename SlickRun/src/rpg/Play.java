@@ -18,7 +18,7 @@ import org.newdawn.slick.Color;
 
 public class Play extends BasicGameState{
 	
-	Player yuusha2;
+	Player static yuusha2;
 	Map map;
 	ObjectClass object; //causing null problems
 	boolean quit = false;
