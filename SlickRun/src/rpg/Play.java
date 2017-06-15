@@ -12,13 +12,15 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 
 import java.awt.Font;
+import java.util.ArrayList;
 
+import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 
 public class Play extends BasicGameState{
 	
-	static Player yuusha2;
+	Player yuusha2;
 	Map map;
 	ObjectClass object; //causing null problems
 	boolean quit = false;
@@ -43,14 +45,36 @@ public class Play extends BasicGameState{
 	private boolean object5 = false;
 	private boolean object6 = false;
 	
+	private ArrayList<Monster> opone;
+	private boolean acceptingInput;
+	private String idk;
+	private String idk2;
+	private Image player,monster;
+	private int counter;
+	private String placeHolder;
+	private String placeHolder2;
+	private String idk3;
+	
 	Input input;
+	private String placeHolder3;
 	
 	public Play(int state) {
+		opone = new ArrayList<Monster>();
+//		opone.add(new Monster("chest", 100, 10, 10));
 		yuusha2 = new Player();
 		map = new Map();
+		counter = 1;
+		placeHolder = "";
+		placeHolder2 = "";
+		idk = "";
+		idk2 = "";
+		idk3 = "";
+		placeHolder3 = "";
 	}
 
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+		monster = new Image("resources/blank.png");
+		player = new Image("resources/blank.png");
 		input = gc.getInput();
 		abc = new TextField(gc, gc.getDefaultFont(), 12, 500, 1000, 80);
 		Font asd = new Font("Helvetica", Font.BOLD, 24);
@@ -189,6 +213,7 @@ public class Play extends BasicGameState{
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
+		gc.setShowFPS(false);
 		//MAP
 		tiledmap.render((int)map.getX()-32,
 				(int)map.getY()-32,
@@ -216,7 +241,15 @@ public class Play extends BasicGameState{
 		g.drawString("X: " + yuusha2.getYuushaX() + "\nY: " + yuusha2.getYuushaY(), 600, 10);//hero coordinates
 		abc.render(gc, g);
 		g.drawRect(abc.getX(), abc.getY(), abc.getWidth(), abc.getHeight());
-		font.drawString(10, 10, "HP:" + yuusha2.getHp(), Color.white);
+		font.drawString(700, 50, placeHolder, Color.white);
+		font.drawString(462-(font.getWidth(idk)), 300-(font.getHeight(idk)), idk, Color.white);
+		font.drawString(562-(font.getWidth(idk2)), 300-(font.getHeight(idk2)), idk2, Color.white);
+		font.drawString(462-(font.getWidth(idk)), 300-(font.getHeight(idk))+50, idk3, Color.white);
+		font.drawString(50, 220, placeHolder3, Color.white);
+		font.drawString(10, 10, placeHolder2, Color.white);
+		monster.draw(700, 80);
+		player.draw(50, 250);
+		
 		
 		//LOADING BAR-display time
 		if(time<duration) {
@@ -242,105 +275,168 @@ public class Play extends BasicGameState{
 		}
 	} 
 
-	public void update(GameContainer gc, StateBasedGame sbg, int a) throws SlickException {		
-		//CHARACTER-keyboard input
-		if(input.isKeyDown(Input.KEY_UP)){
-//			if(checkCollision(yuusha2.getYuushaX(),yuusha2.getYuushaY()-1) == true && object3 == true){
-			if(checkCollision(yuusha2.getYuushaX(),yuusha2.getYuushaY()-1) == true){ 
-				yuusha = moveUp;
-				yuusha.update(a);
-				if(input.isKeyDown(Input.KEY_LSHIFT) && object4 == true){
-					yuusha2.setYuushaY(yuusha2.getYuushaY()-1.5);
-					map.setY(map.getY()+1.5);
-					chestY+=1.5;
-				}else{
-					yuusha2.setYuushaY(yuusha2.getYuushaY()-1);
-					map.setY(map.getY()+1);
-					chestY++;
+	public void update(GameContainer gc, StateBasedGame sbg, int a) throws SlickException {	
+		int xpos = Mouse.getX();
+		int ypos = Mouse.getY();
+		if(!(yuusha2.getYuushaX() >= -100 && yuusha2.getYuushaX() <= 695 && yuusha2.getYuushaY() >= -127 && yuusha2.getYuushaY() <= 607) && counter % 421 == 0){
+			placeHolder = "";
+			opone.add(new Monster("chest", 100, 5));
+			placeHolder = opone.get(0).getName() + " Hp: " + opone.get(0).gethp();
+			placeHolder3 ="Hp:" + yuusha2.getHp();
+			acceptingInput = true;
+			if(acceptingInput){
+				player = new Image ("resources/player.png");
+				monster = new Image("resources/monster.png");
+				idk = "Attack";
+				idk2 = "Run";
+				idk3 = "Special";
+				if(xpos > 462 - (font.getWidth(idk)) && xpos < 462 && ypos < 300+(font.getHeight(idk)) && ypos > 300-(font.getHeight(idk)) && input.isMousePressed(0)){
+					abc.setText("You attacked normally dealing " + yuusha2.getDmg() + "dmg");
+					opone.get(0).decreaseHp(yuusha2.getDmg());
+					acceptingInput = false;
+					yuusha2.decHp(opone.get(0).getdmg());
+				}else if(xpos > 462-(font.getWidth(idk3)) && xpos < 462 && ypos < 250 +(font.getHeight(idk3)) && ypos > 250 -(font.getHeight(idk3)) && input.isMousePressed(0)){
+					abc.setText("You used special"+"\n"+"You did " + (int)(yuusha2.getDmg()*1.2));
+					opone.get(0).decreaseHp((int)(yuusha2.getDmg()*(Math.random()+1)));
+					acceptingInput = false;
+					yuusha2.decHp(opone.get(0).getdmg());
+				}else if(xpos > 562-(font.getWidth(idk2)) && xpos < 562 && ypos < 300 +(font.getHeight(idk2)) && ypos > 300 -(font.getHeight(idk2)) && input.isMousePressed(0)){
+					abc.setText("You try to run");
+					acceptingInput = false;
+					double rand = Math.random();
+					if(rand > .80){
+						counter = 1;
+						opone.remove(0);
+						idk = "";
+						idk2 = "";
+						idk3 = "";
+						player = new Image("resources/blank.png");
+						monster = new Image("resources/blank.png");
+						placeHolder = "";
+						placeHolder3 = "";
+						abc.setText("You Sucessfully escaped");
+					}else{
+						abc.setText("You Failed to Escape");
+						yuusha2.decHp(opone.get(0).getdmg());
+					}
 				}
-			}else if(object3 == false){
-				abc.setText("You do not have the ability to move UP");
 			}
-		}
-		if(input.isKeyDown(Input.KEY_DOWN)){
-			if(checkCollision(yuusha2.getYuushaX(),yuusha2.getYuushaY()+1) == true){
-				yuusha = moveDown;
-				yuusha.update(a);
-				if(input.isKeyDown(Input.KEY_LSHIFT) && object4 == true){
-					yuusha2.setYuushaY(yuusha2.getYuushaY()+1.5);
-					map.setY(map.getY()-1.5);
-					chestY-=1.5;
-				}else{
-					yuusha2.setYuushaY(yuusha2.getYuushaY()+1);
-					map.setY(map.getY()-1);
-					chestY--;
+			if(yuusha2.getHp() == 0){
+				abc.setText("You have Died");
+				System.exit(0);
+			}else if(opone.get(0).gethp() == 0){
+				counter = 1;
+				opone.remove(0);
+				idk = "";
+				idk2 = "";
+				idk3 = "";
+				player = new Image("resources/blank.png");
+				monster = new Image("resources/blank.png");
+				placeHolder = "";
+				placeHolder3 = "";
+			}
+		}else{
+			counter += Math.random()*10;
+			placeHolder2 = "HP: " + yuusha2.getHp();
+			//CHARACTER-keyboard input
+			if(input.isKeyDown(Input.KEY_UP)){
+//				if(checkCollision(yuusha2.getYuushaX(),yuusha2.getYuushaY()-1) == true && object3 == true){
+				if(checkCollision(yuusha2.getYuushaX(),yuusha2.getYuushaY()-1) == true){ 
+					yuusha = moveUp;
+					yuusha.update(a);
+					if(input.isKeyDown(Input.KEY_LSHIFT) && object4 == true){
+						yuusha2.setYuushaY(yuusha2.getYuushaY()-1.5);
+						map.setY(map.getY()+1.5);
+						chestY+=1.5;
+					}else{
+						yuusha2.setYuushaY(yuusha2.getYuushaY()-1);
+						map.setY(map.getY()+1);
+						chestY++;
+					}
+				}else if(object3 == false){
+					abc.setText("You do not have the ability to move UP");
 				}
 			}
-		}
-		if(input.isKeyDown(Input.KEY_LEFT)){
-//			if(checkCollision(yuusha2.getYuushaX()-1,yuusha2.getYuushaY()) == true && object1 == true){
-			if(checkCollision(yuusha2.getYuushaX()-1,yuusha2.getYuushaY()) == true){
-				yuusha = moveLeft;
-				yuusha.update(a);
-				if(input.isKeyDown(Input.KEY_LSHIFT) && object4 == true){
-					yuusha2.setYuushaX(yuusha2.getYuushaX()-1.5);
-					map.setX(map.getX()+1.5);
-					chestX+=1.5;
-				}else{
-					yuusha2.setYuushaX(yuusha2.getYuushaX()-1);
-					map.setX(map.getX()+1);
-					chestX++;
+			if(input.isKeyDown(Input.KEY_DOWN)){
+				if(checkCollision(yuusha2.getYuushaX(),yuusha2.getYuushaY()+1) == true){
+					yuusha = moveDown;
+					yuusha.update(a);
+					if(input.isKeyDown(Input.KEY_LSHIFT) && object4 == true){
+						yuusha2.setYuushaY(yuusha2.getYuushaY()+1.5);
+						map.setY(map.getY()-1.5);
+						chestY-=1.5;
+					}else{
+						yuusha2.setYuushaY(yuusha2.getYuushaY()+1);
+						map.setY(map.getY()-1);
+						chestY--;
+					}
 				}
-			}else if(object1 == false){
-				abc.setText("You do not have the ability to move LEFT");
 			}
-		}
-		if(input.isKeyDown(Input.KEY_RIGHT)){
-//			if(checkCollision(yuusha2.getYuushaX()+1,yuusha2.getYuushaY()) == true && object2 == true){
-			if(checkCollision(yuusha2.getYuushaX()+1,yuusha2.getYuushaY()) == true){	
-				yuusha = moveRight;
-				yuusha.update(a);
-				if(input.isKeyDown(Input.KEY_LSHIFT) && object4 == true){
-					yuusha2.setYuushaX(yuusha2.getYuushaX()+1.5);
-					map.setX(map.getX()-1.5);
-					chestX-=1.5;
-				}else{
-					yuusha2.setYuushaX(yuusha2.getYuushaX()+1);
-					map.setX(map.getX()-1);
-					chestX--;
+			if(input.isKeyDown(Input.KEY_LEFT)){
+//				if(checkCollision(yuusha2.getYuushaX()-1,yuusha2.getYuushaY()) == true && object1 == true){
+				if(checkCollision(yuusha2.getYuushaX()-1,yuusha2.getYuushaY()) == true){
+					yuusha = moveLeft;
+					yuusha.update(a);
+					if(input.isKeyDown(Input.KEY_LSHIFT) && object4 == true){
+						yuusha2.setYuushaX(yuusha2.getYuushaX()-1.5);
+						map.setX(map.getX()+1.5);
+						chestX+=1.5;
+					}else{
+						yuusha2.setYuushaX(yuusha2.getYuushaX()-1);
+						map.setX(map.getX()+1);
+						chestX++;
+					}
+				}else if(object1 == false){
+					abc.setText("You do not have the ability to move LEFT");
 				}
-			}else if(object2 == false){
-				abc.setText("You do not have the ability to move RIGHT");
 			}
+			if(input.isKeyDown(Input.KEY_RIGHT)){
+	//			if(checkCollision(yuusha2.getYuushaX()+1,yuusha2.getYuushaY()) == true && object2 == true){
+				if(checkCollision(yuusha2.getYuushaX()+1,yuusha2.getYuushaY()) == true){	
+					yuusha = moveRight;
+					yuusha.update(a);
+					if(input.isKeyDown(Input.KEY_LSHIFT) && object4 == true){
+						yuusha2.setYuushaX(yuusha2.getYuushaX()+1.5);
+						map.setX(map.getX()-1.5);
+						chestX-=1.5;
+					}else{
+						yuusha2.setYuushaX(yuusha2.getYuushaX()+1);
+						map.setX(map.getX()-1);
+						chestX--;
+					}
+				}else if(object2 == false){
+					abc.setText("You do not have the ability to move RIGHT");
+				}
+			}
+			if(input.isKeyDown(Input.KEY_SPACE)){
+				findingInteraction();
+			}
+			if(input.isKeyDown(Input.KEY_ESCAPE)){
+				sbg.enterState(0);
+			}
+			if(input.isKeyPressed(Input.KEY_I)){
+				sbg.enterState(3);
+			}
+			// MAP-rendering with movement
+			if(map.getX()<0){
+				map.setMapX(map.getMapX()+1);
+				map.setX(32);
+			}
+			if(map.getX()>32){
+				map.setMapX(map.getMapX()-1);
+				map.setX(0);
+			}
+			if(map.getY()<0){
+				map.setMapY(map.getMapY()+1);
+				map.setY(32);
+			}
+			if(map.getY()>32){
+				map.setMapY(map.getMapY()-1);
+				map.setY(0);
+			}
+			//LOADING BAR
+			time += a;
 		}
-		if(input.isKeyDown(Input.KEY_SPACE)){
-			findingInteraction();
-		}
-		if(input.isKeyDown(Input.KEY_ESCAPE)){
-			sbg.enterState(0);
-		}
-		if(input.isKeyPressed(Input.KEY_I)){
-			sbg.enterState(3);
-		}
-		// MAP-rendering with movement
-		if(map.getX()<0){
-			map.setMapX(map.getMapX()+1);
-			map.setX(32);
-		}
-		if(map.getX()>32){
-			map.setMapX(map.getMapX()-1);
-			map.setX(0);
-		}
-		if(map.getY()<0){
-			map.setMapY(map.getMapY()+1);
-			map.setY(32);
-		} 
-		if(map.getY()>32){
-			map.setMapY(map.getMapY()-1);
-			map.setY(0);
-		}
-		//LOADING BAR
-		time += a;
 	}
 	
 	private void findingInteraction() {
@@ -370,6 +466,7 @@ public class Play extends BasicGameState{
 			System.out.println("Found Interaction: "+v+", "+w);
 			objectInteraction(v,w);
 		}		
+		
 	}
 
 	public void objectInteraction(double a, double b) {
@@ -437,8 +534,4 @@ public class Play extends BasicGameState{
 	public int getID() {
 		return 1;
 	}
-	public static Player getYuusha(){
-		return yuusha2;
-	}
 }
-
