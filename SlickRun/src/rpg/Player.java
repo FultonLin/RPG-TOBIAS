@@ -1,8 +1,6 @@
 package rpg;
 
-import org.newdawn.slick.Input;
-
-public class Player implements PlayerInterface,Runnable{
+public class Player implements PlayerInterface{
 	
 	private double yuushaX = 0;
 	private double yuushaY = 0;
@@ -24,7 +22,6 @@ public class Player implements PlayerInterface,Runnable{
 		return yuushaY;
 	}
 
-	@Override
 	public int getDmg() {
 		return dmg;
 	}
@@ -37,21 +34,6 @@ public class Player implements PlayerInterface,Runnable{
 	@Override
 	public int getspd() {
 		return spd;
-	}
-
-	@Override
-	public void run() {
-//		while(target != null){
-//			if(input.isKeyPressed(Input.KEY_A)){
-//				System.out.println("You are attacking the monster"+target.getName());
-//				target.decreaseHp(dmg);
-//			}
-//			try {
-//				Thread.sleep(atkSpd);
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
-//		}
 	}
 
 	@Override
