@@ -12,7 +12,6 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 
 import java.awt.Font;
-import java.util.ArrayList;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
