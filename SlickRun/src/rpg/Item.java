@@ -3,25 +3,28 @@ package rpg;
 public class Item implements ItemInterface{
 	
 	private String name;
-	private int type;
+	private String type;
 	private int attack;
 	private int attackspd;
 	private int def;
 	private int num;
+	private int heal;
 
-	public Item(String name, int type, int attack, int attackspd, int def){
+	public Item(String name, String type, int attack, int attackspd, int def, int heal, int num){
 		this.name = name;
 		this.type = type;
 		this.attack = attack;
 		this.attackspd = attackspd;
 		this.def = def;
+		this.heal = heal;
+		this.num = num;
 	}
 	
 	public int getdef(){
 		return def;
 	}
 	
-	public int getType(){
+	public String getType(){
 		return type;  
 	}
 	
@@ -40,13 +43,18 @@ public class Item implements ItemInterface{
 	}
 
 	@Override
-	public int getNum() {
+	public int getStackNum() {
 		return num;
 	}
 
 	@Override
 	public void incNum(int num) {
 		num += num;
+	}
+
+	@Override
+	public int getHeal() {
+		return heal;
 	}
 	
 }
