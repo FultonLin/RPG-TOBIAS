@@ -19,14 +19,12 @@ public class Inventory extends BasicGameState{
 	protected static ArrayList<Item> inven;
 	protected static ArrayList<Item> equip;
 	private Item[] shown;
-	private TrueTypeFont font;
-	private TextField abc;
-	private int counter;
 	private String[] field;
 	private TrueTypeFont[] field2;
+	private TrueTypeFont font;
+	private TextField abc;
 	
 	public Inventory(int inventory) {
-		counter = 0;
 		inven = new ArrayList<Item>();
 		equip = new ArrayList<Item>();
 		shown = new Item[3];
@@ -87,8 +85,7 @@ public class Inventory extends BasicGameState{
 		
 		int placeHolder = 100;
 		for(int i = 0; i < field2.length;i++){
-			if(xpos > 500 && xpos < 500 + field2[i].getWidth(field[i]) && ypos < 600 - placeHolder && ypos > 600 - (placeHolder + field2[i].getHeight(field[i])) && input.isMouseButtonDown(0)){
-				System.out.println(shown[i].getName());
+			if(xpos > 500 && xpos < 500 + field2[i].getWidth(field[i]) && ypos < 600 - placeHolder && ypos > 600 - (placeHolder + field2[i].getHeight(field[i])) && input.isMousePressed(0)){
 				for(int j = 0; j < inven.size(); j++){
 					if(shown[i].getName().equals(inven.get(j).getName())){
 						shown[0] = inven.get(j % inven.size());
@@ -132,9 +129,16 @@ public class Inventory extends BasicGameState{
 	public static void addEquip(Item equips) {
 		boolean found = false;
 		for(int i = 0; i < equip.size(); i++){
-			if(equips.getType().equals(equip.get(i).getType())){
+			int armorCount = 0;
+			if(equips.getType().equals(equip.get(i).getType()) && !(equip.get(i).getType().equals("Armor"))){
 				found = true;
 				equip.set(i,equips);
+			}else if(equips.getType().equals("Armor")){
+				armorCount++;
+			}else if(armorCount <= 3){
+				equip.add(equips);
+			}else if(armorCount > 3){
+				equip.set(0, equips);
 			}
 		}
 		if(found != true){
