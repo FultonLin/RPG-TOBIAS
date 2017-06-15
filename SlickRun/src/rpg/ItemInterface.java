@@ -10,4 +10,5 @@ public interface ItemInterface {
 	int getNum();
 	void incNum(int num);
 	int getStackNum();
+	int getHeal();
 }
