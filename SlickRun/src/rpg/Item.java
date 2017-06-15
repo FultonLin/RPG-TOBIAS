@@ -10,11 +10,10 @@ public class Item implements ItemInterface{
 	private int num;
 	private int heal;
 
-	public Item(String name, String type, int attack, int attackspd, int def, int heal, int num){
+	public Item(String name, String type, int attack, int def, int heal, int num){
 		this.name = name;
 		this.type = type;
 		this.attack = attack;
-		this.attackspd = attackspd;
 		this.def = def;
 		this.heal = heal;
 		this.num = num;
