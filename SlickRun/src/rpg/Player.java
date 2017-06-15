@@ -6,7 +6,6 @@ public class Player implements PlayerInterface{
 	private double yuushaY = 0;
 	private int dmg = 10;
 	private int hp = 100;
-	private int spd = 20;
 
 	
 	public Player(){
@@ -30,12 +29,6 @@ public class Player implements PlayerInterface{
 	public int getHp() {
 		return hp;
 	}
-
-	@Override
-	public int getspd() {
-		return spd;
-	}
-
 	@Override
 	public void setYuushaX(double yuushaX) {
 		this.yuushaX = yuushaX;
