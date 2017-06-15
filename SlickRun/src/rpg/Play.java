@@ -48,7 +48,6 @@ public class Play extends BasicGameState{
 	
 	public Play(int state) {
 		yuusha2 = new Player();
-		populateMap();
 		map = new Map();
 	}
 
@@ -435,13 +434,12 @@ public class Play extends BasicGameState{
 			abc.setText("Graveyard for all the fallen warriors that fought against the demon king.\nThis is also where the previous fallen HERO lies.");			
 		}
 	}
-	
-	private void populateMap() {
-//		mob.add(new Monster("Chest", 10, 1, 2, 500, 200, 200, 100, 100));//example to create mob
-	}
 
 	public int getID() {
 		return 1;
+	}
+	public static Player getYuusha(){
+		return yuusha2;
 	}
 }
 
